@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "8_PL_Silver_Gameplay_Transform"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4e954c00-f40e-a628-414c-806ff94f4829"
+  }
+}

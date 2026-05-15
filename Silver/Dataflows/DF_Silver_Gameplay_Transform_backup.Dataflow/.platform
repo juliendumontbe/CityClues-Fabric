@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "DF_Silver_Gameplay_Transform_backup"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a8b8f9fe-363a-b494-490e-b926e2c1c024"
+  }
+}

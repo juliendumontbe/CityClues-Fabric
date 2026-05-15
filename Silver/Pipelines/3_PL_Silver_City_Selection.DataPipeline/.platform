@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "3_PL_Silver_City_Selection",
+    "description": ""
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1aa52581-0f94-bcf6-4934-2085b44d6aaa"
+  }
+}

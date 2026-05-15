@@ -1,0 +1,137 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "IF OBJECT_ID('dbo.city_selection_overrides', 'U') IS NULL\nBEGIN\n    CREATE TABLE dbo.city_selection_overrides (\n        city_id BIGINT NOT NULL,\n        is_active BIT NOT NULL,\n        override_reason VARCHAR(255),\n        added_by VARCHAR(100),\n        added_at DATETIME2(6)\n    );\nEND;",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Create_city_selection_overrides_table",
+        "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "CREATE OR ALTER VIEW dbo.cities_selection_view AS\n\n\n\nWITH active_overrides AS (\n\n    SELECT DISTINCT city_id\n\n    FROM dbo.city_selection_overrides\n\n    WHERE is_active = 1\n\n),\n\n\n\nmanual_additions AS (\n\n    SELECT\n\n        dc.city_id,\n\n        dc.city_name,\n\n        dc.country_code,\n\n        dc.latitude,\n\n        dc.longitude,\n\n        dc.city_pop,\n\n        dc.is_capital,\n\n        dc.city_score,\n\n        'manual_override' AS selection_source\n\n    FROM dbo.dim_city dc\n\n    INNER JOIN active_overrides o\n\n        ON dc.city_id = o.city_id\n\n    WHERE dc.city_pop IS NOT NULL\n\n      AND dc.city_pop > 0\n\n      AND dc.latitude IS NOT NULL\n\n      AND dc.longitude IS NOT NULL\n\n      AND dc.city_score IS NOT NULL\n\n),\n\n\n\nscored AS (\n\n    SELECT\n\n        dc.city_id,\n\n        dc.city_name,\n\n        dc.country_code,\n\n        dc.latitude,\n\n        dc.longitude,\n\n        dc.city_pop,\n\n        dc.is_capital,\n\n        dc.city_score\n\n    FROM dbo.dim_city dc\n\n    WHERE dc.city_pop IS NOT NULL\n\n      AND dc.city_pop > 0\n\n      AND dc.latitude IS NOT NULL\n\n      AND dc.longitude IS NOT NULL\n\n      AND dc.city_score IS NOT NULL\n\n),\n\n\n\nranked AS (\n\n    SELECT\n\n        *,\n\n        ROW_NUMBER() OVER (\n\n            PARTITION BY country_code\n\n            ORDER BY city_score DESC\n\n        ) AS rank_in_country\n\n    FROM scored\n\n    WHERE city_pop > 200000\n\n       OR is_capital = 1\n\n),\n\n\n\nrule_based AS (\n\n    SELECT\n\n        city_id,\n\n        city_name,\n\n        country_code,\n\n        latitude,\n\n        longitude,\n\n        city_pop,\n\n        is_capital,\n\n        city_score,\n\n        'rule_based' AS selection_source\n\n    FROM ranked\n\n    WHERE is_capital = 1\n\n       OR rank_in_country <= 3\n\n),\n\n\n\ntop_200 AS (\n\n    SELECT TOP 200 *\n\n    FROM rule_based\n\n    ORDER BY city_score DESC\n\n),\n\n\n\nmanual_only AS (\n\n    SELECT m.*\n\n    FROM manual_additions m\n\n    WHERE NOT EXISTS (\n\n        SELECT 1\n\n        FROM top_200 t\n\n        WHERE t.city_id = m.city_id\n\n    )\n\n),\n\n\n\nfinal_selection AS (\n\n    SELECT * FROM top_200\n\n    UNION ALL\n\n    SELECT * FROM manual_only\n\n)\n\n\n\nSELECT\n\n    city_id,\n\n    city_name,\n\n    country_code,\n\n    latitude,\n\n    longitude,\n\n    city_pop,\n\n    is_capital,\n\n    city_score,\n\n    selection_source,\n\n    NTILE(3) OVER (ORDER BY city_score DESC) AS difficulty_level\n\nFROM final_selection;\n",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_cities_selection_view",
+        "dependsOn": [
+          {
+            "activity": "Create_city_selection_overrides_table",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "SELECT\n    COUNT(*) AS total_rows,\n    COUNT(DISTINCT city_id) AS distinct_cities,\n    SUM(CASE WHEN city_id IS NULL THEN 1 ELSE 0 END) AS null_city_id,\n    SUM(CASE WHEN city_name IS NULL THEN 1 ELSE 0 END) AS null_city_name\nFROM dbo.cities_selection_view;",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Check_selection_view_quality",
+        "dependsOn": [
+          {
+            "activity": "Build_cities_selection_view",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

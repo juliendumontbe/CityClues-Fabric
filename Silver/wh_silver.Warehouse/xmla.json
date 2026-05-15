@@ -1,0 +1,1785 @@
+{
+  "name": "{{Dataset_Name}}",
+  "compatibilityLevel": 1604,
+  "model": {
+    "name": "{{Dataset_Name}}",
+    "culture": "en-US",
+    "collation": "Latin1_General_100_BIN2_UTF8",
+    "dataAccessOptions": {
+      "legacyRedirects": true,
+      "returnErrorValuesAsNull": true
+    },
+    "defaultPowerBIDataSourceVersion": "powerBI_V3",
+    "sourceQueryCulture": "en-US",
+    "tables": [
+      {
+        "name": "cities_clean(1)",
+        "sourceLineageTag": "[dbo].[cities_clean]",
+        "columns": [
+          {
+            "name": "city_id",
+            "dataType": "string",
+            "sourceColumn": "city_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_name",
+            "dataType": "string",
+            "sourceColumn": "city_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_code",
+            "dataType": "string",
+            "sourceColumn": "country_code",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_code",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "feature_code",
+            "dataType": "string",
+            "sourceColumn": "feature_code",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "feature_code",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "latitude",
+            "dataType": "double",
+            "sourceColumn": "latitude",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "latitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "longitude",
+            "dataType": "double",
+            "sourceColumn": "longitude",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "longitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "city_pop",
+            "dataType": "int64",
+            "sourceColumn": "city_pop",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "city_pop",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "altitude",
+            "dataType": "int64",
+            "sourceColumn": "altitude",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "altitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "timezone",
+            "dataType": "string",
+            "sourceColumn": "timezone",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "timezone",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_capital",
+            "dataType": "int64",
+            "sourceColumn": "is_capital",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "is_capital",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hemisphere",
+            "dataType": "string",
+            "sourceColumn": "hemisphere",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "hemisphere",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "longitudinal_zone",
+            "dataType": "string",
+            "sourceColumn": "longitudinal_zone",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "longitudinal_zone",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "global_quadrant",
+            "dataType": "string",
+            "sourceColumn": "global_quadrant",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "global_quadrant",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_category",
+            "dataType": "string",
+            "sourceColumn": "city_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_first_letter",
+            "dataType": "string",
+            "sourceColumn": "city_first_letter",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_first_letter",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_last_letter",
+            "dataType": "string",
+            "sourceColumn": "city_last_letter",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_last_letter",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_name_length_category",
+            "dataType": "string",
+            "sourceColumn": "city_name_length_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_name_length_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_word_count_category",
+            "dataType": "string",
+            "sourceColumn": "city_word_count_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_word_count_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "altitude_category",
+            "dataType": "string",
+            "sourceColumn": "altitude_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "altitude_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "cities_clean",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "cities_selection_view(1)",
+        "sourceLineageTag": "[dbo].[cities_selection_view]",
+        "columns": [
+          {
+            "name": "city_name",
+            "dataType": "string",
+            "sourceColumn": "city_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_code",
+            "dataType": "string",
+            "sourceColumn": "country_code",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_code",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "latitude",
+            "dataType": "double",
+            "sourceColumn": "latitude",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "latitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "longitude",
+            "dataType": "double",
+            "sourceColumn": "longitude",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "longitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "city_pop",
+            "dataType": "int64",
+            "sourceColumn": "city_pop",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "city_pop",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_capital",
+            "dataType": "int64",
+            "sourceColumn": "is_capital",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "is_capital",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_score",
+            "dataType": "double",
+            "sourceColumn": "city_score",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "city_score",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "selection_source",
+            "dataType": "string",
+            "sourceColumn": "selection_source",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "selection_source",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "difficulty_level",
+            "dataType": "int64",
+            "sourceColumn": "difficulty_level",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "difficulty_level",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_id",
+            "dataType": "int64",
+            "sourceColumn": "city_id",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "city_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "cities_selection_view",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "city_selection_overrides(1)",
+        "sourceLineageTag": "[dbo].[city_selection_overrides]",
+        "columns": [
+          {
+            "name": "city_id",
+            "dataType": "int64",
+            "sourceColumn": "city_id",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "city_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_active",
+            "dataType": "boolean",
+            "sourceColumn": "is_active",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "bit",
+            "sourceLineageTag": "is_active",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "override_reason",
+            "dataType": "string",
+            "sourceColumn": "override_reason",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "override_reason",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "added_by",
+            "dataType": "string",
+            "sourceColumn": "added_by",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "added_by",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "added_at",
+            "dataType": "dateTime",
+            "sourceColumn": "added_at",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "added_at",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "city_selection_overrides",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "coast_distance_clean(1)",
+        "sourceLineageTag": "[dbo].[coast_distance_clean]",
+        "columns": [
+          {
+            "name": "city_id",
+            "dataType": "string",
+            "sourceColumn": "city_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "coastal_distance",
+            "dataType": "double",
+            "sourceColumn": "coastal_distance",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "coastal_distance",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "coastal_distance_category",
+            "dataType": "string",
+            "sourceColumn": "coastal_distance_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "coastal_distance_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "coast_distance_clean",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "dim_city",
+        "sourceLineageTag": "[dbo].[dim_city]",
+        "columns": [
+          {
+            "name": "city_id",
+            "dataType": "int64",
+            "sourceColumn": "city_id",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "city_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_name",
+            "dataType": "string",
+            "sourceColumn": "city_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_code",
+            "dataType": "string",
+            "sourceColumn": "country_code",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_code",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "latitude",
+            "dataType": "double",
+            "sourceColumn": "latitude",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "latitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "longitude",
+            "dataType": "double",
+            "sourceColumn": "longitude",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "longitude",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "city_pop",
+            "dataType": "int64",
+            "sourceColumn": "city_pop",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "city_pop",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "altitude_category",
+            "dataType": "string",
+            "sourceColumn": "altitude_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "altitude_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "timezone",
+            "dataType": "string",
+            "sourceColumn": "timezone",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "timezone",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_capital",
+            "dataType": "int64",
+            "sourceColumn": "is_capital",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "is_capital",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hemisphere",
+            "dataType": "string",
+            "sourceColumn": "hemisphere",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "hemisphere",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "longitudinal_zone",
+            "dataType": "string",
+            "sourceColumn": "longitudinal_zone",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "longitudinal_zone",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "global_quadrant",
+            "dataType": "string",
+            "sourceColumn": "global_quadrant",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "global_quadrant",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_category",
+            "dataType": "string",
+            "sourceColumn": "city_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_first_letter",
+            "dataType": "string",
+            "sourceColumn": "city_first_letter",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_first_letter",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_last_letter",
+            "dataType": "string",
+            "sourceColumn": "city_last_letter",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_last_letter",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_name_length_category",
+            "dataType": "string",
+            "sourceColumn": "city_name_length_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_name_length_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_word_count_category",
+            "dataType": "string",
+            "sourceColumn": "city_word_count_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "city_word_count_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "coastal_distance",
+            "dataType": "double",
+            "sourceColumn": "coastal_distance",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "coastal_distance",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "coastal_distance_category",
+            "dataType": "string",
+            "sourceColumn": "coastal_distance_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "coastal_distance_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_score",
+            "dataType": "double",
+            "sourceColumn": "city_score",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "city_score",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dim_city",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "dim_country(1)",
+        "sourceLineageTag": "[dbo].[dim_country]",
+        "columns": [
+          {
+            "name": "country_code",
+            "dataType": "string",
+            "sourceColumn": "country_code",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_code",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_id",
+            "dataType": "string",
+            "sourceColumn": "country_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_name",
+            "dataType": "string",
+            "sourceColumn": "country_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "capital",
+            "dataType": "string",
+            "sourceColumn": "capital",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "capital",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_area",
+            "dataType": "int64",
+            "sourceColumn": "country_area",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "country_area",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_pop",
+            "dataType": "int64",
+            "sourceColumn": "country_pop",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "country_pop",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "continent",
+            "dataType": "string",
+            "sourceColumn": "continent",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "continent",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "currency_code",
+            "dataType": "string",
+            "sourceColumn": "currency_code",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "currency_code",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "currency_name",
+            "dataType": "string",
+            "sourceColumn": "currency_name",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "currency_name",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "languages",
+            "dataType": "string",
+            "sourceColumn": "languages",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "languages",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "neighbours",
+            "dataType": "string",
+            "sourceColumn": "neighbours",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "neighbours",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_density_category",
+            "dataType": "string",
+            "sourceColumn": "country_density_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_density_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "languages_count",
+            "dataType": "int64",
+            "sourceColumn": "languages_count",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "languages_count",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "neighbours_count",
+            "dataType": "int64",
+            "sourceColumn": "neighbours_count",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "neighbours_count",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "country_category",
+            "dataType": "string",
+            "sourceColumn": "country_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "country_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dim_country",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "dim_hint(1)",
+        "sourceLineageTag": "[dbo].[dim_hint]",
+        "columns": [
+          {
+            "name": "hint_id",
+            "dataType": "int64",
+            "sourceColumn": "hint_id",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "hint_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hint_stage",
+            "dataType": "int64",
+            "sourceColumn": "hint_stage",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "hint_stage",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hint_priority",
+            "dataType": "int64",
+            "sourceColumn": "hint_priority",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "hint_priority",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hint_type",
+            "dataType": "string",
+            "sourceColumn": "hint_type",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "hint_type",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hint_label",
+            "dataType": "string",
+            "sourceColumn": "hint_label",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "hint_label",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hint_description",
+            "dataType": "string",
+            "sourceColumn": "hint_description",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "hint_description",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hint_template",
+            "dataType": "string",
+            "sourceColumn": "hint_template",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "hint_template",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "hint_category",
+            "dataType": "string",
+            "sourceColumn": "hint_category",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "hint_category",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_dynamic",
+            "dataType": "boolean",
+            "sourceColumn": "is_dynamic",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "bit",
+            "sourceLineageTag": "is_dynamic",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_active",
+            "dataType": "boolean",
+            "sourceColumn": "is_active",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "bit",
+            "sourceLineageTag": "is_active",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "source_table",
+            "dataType": "string",
+            "sourceColumn": "source_table",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "source_table",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "source_field",
+            "dataType": "string",
+            "sourceColumn": "source_field",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "source_field",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "dim_hint",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "game_session",
+        "sourceLineageTag": "[dbo].[game_session]",
+        "columns": [
+          {
+            "name": "session_id",
+            "dataType": "string",
+            "sourceColumn": "session_id",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "session_id",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "city_id",
+            "dataType": "int64",
+            "sourceColumn": "city_id",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "city_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "session_start_ts",
+            "dataType": "dateTime",
+            "sourceColumn": "session_start_ts",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "session_start_ts",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "session_end_ts",
+            "dataType": "dateTime",
+            "sourceColumn": "session_end_ts",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "session_end_ts",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "session_duration_sec",
+            "dataType": "int64",
+            "sourceColumn": "session_duration_sec",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "session_duration_sec",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "session_status",
+            "dataType": "string",
+            "sourceColumn": "session_status",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "session_status",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "session_result",
+            "dataType": "string",
+            "sourceColumn": "session_result",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "session_result",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "difficulty_at_start",
+            "dataType": "decimal",
+            "sourceColumn": "difficulty_at_start",
+            "sourceProviderType": "decimal",
+            "sourceLineageTag": "difficulty_at_start",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "nb_hints_requested",
+            "dataType": "int64",
+            "sourceColumn": "nb_hints_requested",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "nb_hints_requested",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "nb_hints_shown",
+            "dataType": "int64",
+            "sourceColumn": "nb_hints_shown",
+            "formatString": "0",
+            "sourceProviderType": "int",
+            "sourceLineageTag": "nb_hints_shown",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "event_source",
+            "dataType": "string",
+            "sourceColumn": "event_source",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "event_source",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "is_simulated",
+            "dataType": "boolean",
+            "sourceColumn": "is_simulated",
+            "formatString": "\"TRUE\";\"TRUE\";\"FALSE\"",
+            "sourceProviderType": "bit",
+            "sourceLineageTag": "is_simulated",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "game_session",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      },
+      {
+        "name": "weather_city_current",
+        "sourceLineageTag": "[dbo].[weather_city_current]",
+        "columns": [
+          {
+            "name": "city_id",
+            "dataType": "int64",
+            "sourceColumn": "city_id",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "city_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "weather_api_city_id",
+            "dataType": "int64",
+            "sourceColumn": "weather_api_city_id",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "weather_api_city_id",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "humidity",
+            "dataType": "int64",
+            "sourceColumn": "humidity",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "humidity",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "temperature",
+            "dataType": "double",
+            "sourceColumn": "temperature",
+            "sourceProviderType": "float",
+            "sourceLineageTag": "temperature",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              },
+              {
+                "name": "PBI_FormatHint",
+                "value": "{\"isGeneralNumber\":true}"
+              }
+            ]
+          },
+          {
+            "name": "weather_type",
+            "dataType": "string",
+            "sourceColumn": "weather_type",
+            "sourceProviderType": "varchar",
+            "sourceLineageTag": "weather_type",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "timezone_offset_sec",
+            "dataType": "int64",
+            "sourceColumn": "timezone_offset_sec",
+            "formatString": "0",
+            "sourceProviderType": "bigint",
+            "sourceLineageTag": "timezone_offset_sec",
+            "summarizeBy": "sum",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "weather_timestamp",
+            "dataType": "dateTime",
+            "sourceColumn": "weather_timestamp",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "weather_timestamp",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          },
+          {
+            "name": "ingestion_timestamp",
+            "dataType": "dateTime",
+            "sourceColumn": "ingestion_timestamp",
+            "formatString": "General Date",
+            "sourceProviderType": "datetime2",
+            "sourceLineageTag": "ingestion_timestamp",
+            "summarizeBy": "none",
+            "annotations": [
+              {
+                "name": "SummarizationSetBy",
+                "value": "Automatic"
+              }
+            ]
+          }
+        ],
+        "partitions": [
+          {
+            "name": "{{Partition_Name}}",
+            "mode": "directLake",
+            "source": {
+              "type": "entity",
+              "entityName": "weather_city_current",
+              "expressionSource": "DatabaseQuery",
+              "schemaName": "dbo"
+            }
+          }
+        ],
+        "annotations": [
+          {
+            "name": "IsTableInBiModel",
+            "value": "False"
+          }
+        ]
+      }
+    ],
+    "expressions": [
+      {
+        "name": "DatabaseQuery",
+        "kind": "m",
+        "expression": "let\n    database = {{TDS_Endpoint}}\nin\n    database\n"
+      }
+    ],
+    "annotations": [
+      {
+        "name": "__PBI_TimeIntelligenceEnabled",
+        "value": "0"
+      },
+      {
+        "name": "SourceLineageTagType",
+        "value": "DatabaseFullyQualifiedName"
+      }
+    ]
+  }
+}

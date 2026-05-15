@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Game_event_raw_simulated",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Game_event_raw_simulated",
+        "itemId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
+        "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70"
+      }
+    }
+  },
+  {
+    "name": "Game_event_raw",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Game_event_raw",
+        "itemId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
+        "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70"
+      }
+    }
+  },
+  {
+    "name": "Countries_raw",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Countries_raw",
+        "itemId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
+        "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70"
+      }
+    }
+  },
+  {
+    "name": "Coastal_distances_raw",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Coastal_distances_raw",
+        "itemId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
+        "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70"
+      }
+    }
+  },
+  {
+    "name": "Cities_raw",
+    "path": "/Tables",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/Cities_raw",
+        "itemId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
+        "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70"
+      }
+    }
+  }
+]

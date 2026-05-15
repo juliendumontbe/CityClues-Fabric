@@ -1,0 +1,170 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.dim_country;\n\nCREATE TABLE dbo.dim_country\nAS\nSELECT\n    -- Keys\n    [#ISO] AS country_code,\n    [geonameid] AS country_id,\n\n    -- Core attributes\n    [Country] AS country_name,\n    [Capital] AS capital,\n    CAST([Area(in sq km)] AS INT) AS country_area,\n    CAST([Population] AS BIGINT) AS country_pop,\n    CASE\n        WHEN [Continent] = 'EU' THEN 'Europe'\n        WHEN [Continent] = 'AS' THEN 'Asia'\n        WHEN [Continent] = 'AF' THEN 'Africa'\n        WHEN [Continent] = 'NA' THEN 'North America'\n        WHEN [Continent] = 'AN' THEN 'Antarctica'\n        WHEN [Continent] = 'SA' THEN 'South America'\n        WHEN [Continent] = 'OC' THEN 'Oceania'\n        END AS continent,\n\n    -- Currency\n    [CurrencyCode] AS currency_code,\n    [CurrencyName] AS currency_name,\n\n    -- Other raw fields\n    [Languages] AS languages,\n    [neighbours] AS neighbours,\n\n    -- Density category\n    CASE \n        WHEN [Area(in sq km)] IS NULL OR [Area(in sq km)] = 0 THEN NULL\n        WHEN (CAST([Population] AS FLOAT) / CAST([Area(in sq km)] AS FLOAT)) < 50 THEN 'very low'\n        WHEN (CAST([Population] AS FLOAT) / CAST([Area(in sq km)] AS FLOAT)) < 150 THEN 'low'\n        WHEN (CAST([Population] AS FLOAT) / CAST([Area(in sq km)] AS FLOAT)) < 300 THEN 'medium'\n        WHEN (CAST([Population] AS FLOAT) / CAST([Area(in sq km)] AS FLOAT)) < 600 THEN 'high'\n        ELSE 'very high'\n    END AS country_density_category,\n\n    -- Languages count\n    CASE \n        WHEN [Languages] IS NULL OR [Languages] = '' THEN 0\n        ELSE LEN([Languages]) - LEN(REPLACE([Languages], ',', '')) + 1\n    END AS languages_count,\n\n    -- Neighbours count\n    CASE \n        WHEN [neighbours] IS NULL OR [neighbours] = '' THEN 0\n        ELSE LEN([neighbours]) - LEN(REPLACE([neighbours], ',', '')) + 1\n    END AS neighbours_count,\n\n    -- Country category\n    CASE \n        WHEN [Population] >= 200000000 THEN 'demographic giant'\n        WHEN [Population] >= 50000000  THEN 'large nation'\n        WHEN [Population] >= 10000000  THEN 'mid-sized nation'\n        WHEN [Population] >= 1000000   THEN 'small Nation'\n        ELSE 'microstate'\n    END AS country_category\n\nFROM [lh_silver].[dbo].[Countries_raw];",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_dim_country",
+        "dependsOn": [
+          {
+            "activity": "Build_dim_city",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "\nDROP TABLE IF EXISTS wh_silver.dbo.cities_clean;\n\nCREATE TABLE wh_silver.dbo.cities_clean AS\n\nWITH base AS (\n    SELECT \n        geonameid AS city_id,\n        name AS city_name,\n        [country code] AS country_code,\n        [feature code] AS feature_code,\n        CAST(latitude AS DECIMAL(9,6)) AS latitude,\n        CAST(longitude AS DECIMAL(9,6)) AS longitude,\n        CAST(population AS INT) AS city_pop,\n        CAST(dem AS INT) AS altitude,\n        timezone\n    FROM [lh_silver].[dbo].[Cities_raw]\n    WHERE latitude IS NOT NULL\n      AND longitude IS NOT NULL\n      AND population IS NOT NULL\n)\n\nSELECT\n    city_id,\n    city_name,\n    country_code,\n    feature_code,\n    latitude,\n    longitude,\n    city_pop,\n    altitude,\n    timezone,\n\n    CASE \n        WHEN feature_code = 'PPLC' THEN 1\n        ELSE 0\n    END AS is_capital,\n\n    CASE \n        WHEN latitude > 0 THEN 'northern hemisphere'\n        WHEN latitude < 0 THEN 'southern hemisphere'\n        ELSE 'equator'\n    END AS hemisphere,\n\n    CASE \n        WHEN longitude > 0 THEN 'eastern hemisphere'\n        WHEN longitude < 0 THEN 'western hemisphere'\n        ELSE 'prime meridian'\n    END AS longitudinal_zone,\n\n    CASE\n        WHEN latitude >= 0 AND longitude >= 0 THEN 'north-east'\n        WHEN latitude >= 0 AND longitude < 0 THEN 'north-west'\n        WHEN latitude < 0 AND longitude >= 0 THEN 'south-east'\n        ELSE 'south-west'\n    END AS global_quadrant,\n\n    CASE \n        WHEN city_pop >= 10000000 THEN 'megacity'\n        WHEN city_pop >= 5000000  THEN 'large City'\n        WHEN city_pop >= 1000000  THEN 'metropolis'\n        WHEN city_pop >= 250000   THEN 'medium City'\n        ELSE 'small City'\n    END AS city_category,\n\n    LEFT(city_name, 1) AS city_first_letter,\n    RIGHT(city_name, 1) AS city_last_letter,\n\n    CASE \n        WHEN LEN(city_name) <= 5 THEN 'short name'\n        WHEN LEN(city_name) <= 12 THEN 'medium name'\n        ELSE 'long name'\n    END AS city_name_length_category,\n\n    CASE \n        WHEN (LEN(city_name) - LEN(REPLACE(city_name, ' ', '')) + 1) = 1 THEN 'single word'\n        WHEN (LEN(city_name) - LEN(REPLACE(city_name, ' ', '')) + 1) = 2 THEN 'compound name'\n        ELSE 'multiple words'\n    END AS city_word_count_category,\n\n    CASE \n        WHEN altitude IS NULL THEN 'unknown'\n        WHEN altitude < 200 THEN 'low'\n        WHEN altitude < 1000 THEN 'medium'\n        ELSE 'high'\n    END AS altitude_category\n\nFROM base;",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_cities_clean",
+        "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.coast_distance_clean\n\nCREATE TABLE dbo.coast_distance_clean AS\n\nSELECT\n    geonameid AS city_id,\n    ROUND(CAST(distance_km AS FLOAT), 0) AS coastal_distance,\n    CASE \n        WHEN CAST(distance_km AS FLOAT) <= 5   THEN 'coastal / shoreline'\n        WHEN CAST(distance_km AS FLOAT) <= 50  THEN 'near-coastal'\n        WHEN CAST(distance_km AS FLOAT) <= 100 THEN 'inland coastal zone'\n        WHEN CAST(distance_km AS FLOAT) <= 500 THEN 'continental'\n        ELSE 'deep continental / landlocked'\n    END AS coastal_distance_category\nFROM [lh_silver].[dbo].[Coastal_distances_raw];",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_coastal_distance_clean",
+        "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.dim_city;\n\n\n\nCREATE TABLE dbo.dim_city AS\n\n\n\nSELECT \n\n    CAST(ci.city_id AS BIGINT) AS city_id,\n\n    ci.city_name,\n\n    ci.country_code,\n\n    ci.latitude,\n\n    ci.longitude,\n\n    ci.city_pop,\n\n    ci.altitude_category,\n\n    ci.timezone,\n\n    ci.is_capital,\n\n    ci.hemisphere,\n\n    ci.longitudinal_zone,\n\n    ci.global_quadrant,\n\n    ci.city_category,\n\n    ci.city_first_letter,\n\n    ci.city_last_letter,\n\n    ci.city_name_length_category,\n\n    ci.city_word_count_category,\n\n\n\n    cd.coastal_distance,\n\n\n\n    CASE \n\n        WHEN cd.coastal_distance IS NULL THEN 'unknown'\n\n        ELSE cd.coastal_distance_category\n\n    END AS coastal_distance_category,\n\n\n\n        CASE\n\n        WHEN ci.city_pop IS NOT NULL AND ci.city_pop > 0\n\n        THEN LOG10(CAST(ci.city_pop AS FLOAT))\n\n             + CASE WHEN ci.is_capital = 1 THEN 2 ELSE 0 END\n\n        ELSE NULL\n\n    END AS city_score\n\n\n\nFROM [wh_silver].[dbo].[cities_clean] ci\n\n\n\nLEFT JOIN [wh_silver].[dbo].[coast_distance_clean] cd\n\n    ON CAST(ci.city_id AS BIGINT) = cd.city_id;",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_dim_city",
+        "dependsOn": [
+          {
+            "activity": "Build_coastal_distance_clean",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Build_cities_clean",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

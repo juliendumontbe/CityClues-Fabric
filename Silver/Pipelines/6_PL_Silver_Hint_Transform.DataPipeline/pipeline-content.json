@@ -1,0 +1,85 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.dim_hint;\n\nCREATE TABLE dbo.dim_hint\n(\n    hint_id INT NOT NULL,\n    hint_stage INT NOT NULL,\n    hint_priority INT NOT NULL,\n    hint_type VARCHAR(100) NOT NULL,\n    hint_label VARCHAR(255) NOT NULL,\n    hint_description VARCHAR(500) NULL,\n    hint_template VARCHAR(1000) NULL,\n    hint_category VARCHAR(100) NULL,\n    is_dynamic BIT NOT NULL,\n    is_active BIT NOT NULL,\n    source_table VARCHAR(100) NULL,\n    source_field VARCHAR(100) NULL\n);",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_Dim_hint",
+        "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "TRUNCATE TABLE dbo.dim_hint;\r\n\r\nINSERT INTO dbo.dim_hint (\r\n    hint_id,\r\n    hint_stage,\r\n    hint_priority,\r\n    hint_type,\r\n    hint_label,\r\n    hint_description,\r\n    hint_template,\r\n    hint_category,\r\n    is_dynamic,\r\n    is_active,\r\n    source_table,\r\n    source_field\r\n)\r\nVALUES\r\n(15,1,1,'local_time','Local time','Indicates the current local time','The local time is {Local_time_live}.','time',1,1,'City_game_context','Timezone_offset_sec'),\r\n(16,1,2,'weather_temp','Temperature','Indicates the current temperature','The current temperature is {Temperature}.','climate',1,1,'Weather_city_current','Temperature'),\r\n(17,1,3,'weather_type','Weather','Indicates the current weather condition','Current weather conditions: {Weather_type}.','climate',1,1,'Weather_city_current','Weather_type'),\r\n\r\n(2,2,4,'hemisphere','Hemisphere','Indicates the hemisphere of the city','The city is in the {Hemisphere}.','geography',0,1,'Dim_City','Hemisphere'),\r\n(1,2,5,'continent','Continent','Indicates the continent of the city','The city is located in {Continent}.','geography',0,1,'Dim_Country','Continent'),\r\n\r\n(22,3,6,'country_category','Country size','Indicates the overall size category of the country','The city is located in a {Country_category} country.','geography',0,1,'Dim_Country','Country_category'),\r\n(7,3,7,'coastal_distance_category','Coastal proximity','Indicates whether the city is coastal or inland','The city is {Coastal_distance_category}.','geography',0,1,'Dim_City','Coastal_distance_category'),\r\n(8,3,8,'altitude_category','Altitude category','Indicates the altitude category of the city','The city is at a {Altitude_category} altitude.','geography',0,1,'Dim_City','Altitude_category'),\r\n(9,3,9,'city_category','City size','Indicates the size category of the city','This is a {City_category}.','demographic',0,1,'Dim_City','City_category'),\r\n(19,3,18,'currency_name','Currency','Indicates the currency used in the country','The currency used is {Currency_name}.','country',0,1,'Dim_Country','Currency_name'),\r\n\r\n(12,4,10,'country_density_category','Country density','Indicates the density of the country','The country has a {Country_density_category} population density.','demographic',0,1,'Dim_Country','Country_density_category'),\r\n(6,4,11,'is_capital','Capital status','Indicates whether the city is a capital','This city is {Is_capital}.','political',0,1,'Dim_City','Is_capital'),\r\n(13,4,12,'languages_count','Number of languages','Indicates the number of main languages in the country','The country has {Languages_count} main language(s).','demographic',0,1,'Dim_Country','Languages_count'),\r\n\r\n(5,5,13,'country_name','Country','Indicates the country of the city','This city is located in {Country_name}.','geography',0,1,'Dim_Country','Country_name'),\r\n(10,5,14,'city_name_length_category','Name length','Indicates the length category of the city name','The city name has a {City_name_length_category} length.','linguistic',0,1,'Dim_City','City_name_length_category'),\r\n(11,5,15,'city_word_count_category','Word count','Indicates the number of words in the city name','The city name falls into the {City_word_count_category} category.','linguistic',0,1,'Dim_City','City_word_count_category'),\r\n(14,5,16,'city_first_letter','First letter','Indicates the first letter of the city name','The city starts with the letter {City_first_letter}.','linguistic',0,1,'Dim_City','City_first_letter'),\r\n\r\n(18,6,17,'city_last_letter','Last letter','Indicates the last letter of the city name','The city ends with the letter {City_last_letter}.','linguistic',0,1,'Dim_City','City_last_letter'),\r\n\r\n(20,5,19,'relative_time_offset','UTC offset','Indicates the UTC offset of the city','The UTC offset is {Relative_time_offset}.','time',0,0,'City_game_context','Relative_time_offset'),\r\n(21,5,20,'count_neighbours','Neighbours count','Indicates the number of neighbouring countries','The country has {Neighbours_count} neighbouring countries.','geography',0,0,'Dim_Country','Neighbours_count'),\r\n(3,5,21,'global_quadrant','Global quadrant','Indicates the global quadrant of the city','The city is in the {Global_quadrant} quadrant.','geography',0,0,'Dim_City','Global_quadrant'),\r\n(4,5,22,'longitudinal_zone','Longitudinal zone','Indicates a simplified longitudinal zone','The city belongs to the {Longitudinal_zone} longitudinal zone.','geography',0,0,'Dim_City','Longitudinal_zone');",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "linkedService": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Insert_into_Dim_hint",
+        "dependsOn": [
+          {
+            "activity": "Build_Dim_hint",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

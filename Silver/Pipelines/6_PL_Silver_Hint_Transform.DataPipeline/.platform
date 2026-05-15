@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "6_PL_Silver_Hint_Transform"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "29d9fd8a-56ff-9e12-4e09-70ce87302f3c"
+  }
+}

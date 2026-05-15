@@ -1,0 +1,67 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Silver_Weather_Current",
+  "queryGroups": [
+    {
+      "id": "22296466-13a6-43d6-88be-f7adf5bfef29",
+      "name": "Transform file from Weather"
+    },
+    {
+      "id": "64dc2a40-279e-4f06-a774-db3be73aac56",
+      "name": "Helper queries",
+      "parentId": "22296466-13a6-43d6-88be-f7adf5bfef29"
+    }
+  ],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "Weather": {
+      "queryId": "c328ce1a-f742-46f3-8afa-b223d7726e0c",
+      "queryName": "Weather"
+    },
+    "Sample file": {
+      "queryId": "f53e7fb8-cfbf-4cc6-b2f9-2dda99a3a0aa",
+      "queryName": "Sample file",
+      "queryGroupId": "64dc2a40-279e-4f06-a774-db3be73aac56",
+      "loadEnabled": false
+    },
+    "Parameter": {
+      "queryId": "36da4380-7b05-4f86-b5a2-a8e37e76548f",
+      "queryName": "Parameter",
+      "queryGroupId": "64dc2a40-279e-4f06-a774-db3be73aac56",
+      "loadEnabled": false
+    },
+    "Transform Sample file": {
+      "queryId": "46cc55cc-b85e-4687-80b9-a07cea01b319",
+      "queryName": "Transform Sample file",
+      "queryGroupId": "22296466-13a6-43d6-88be-f7adf5bfef29",
+      "loadEnabled": false
+    },
+    "Transform file": {
+      "queryId": "2fffbdd7-2c20-40d5-bcc6-f0931700eed5",
+      "queryName": "Transform file",
+      "queryGroupId": "64dc2a40-279e-4f06-a774-db3be73aac56",
+      "loadEnabled": false
+    },
+    "Weather_DataDestination": {
+      "queryId": "03a1eb93-fc43-4cbc-8713-f008f36790fc",
+      "queryName": "Weather_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"98d9f0e4-f4da-4e40-ab39-f636b7a7a878\",\"DatasourceId\":\"bbe386aa-72a2-49d2-a39e-5d0a5bffb1b7\"}"
+    },
+    {
+      "path": "Warehouse",
+      "kind": "Warehouse",
+      "connectionId": "{\"ClusterId\":\"98d9f0e4-f4da-4e40-ab39-f636b7a7a878\",\"DatasourceId\":\"15cc7f6b-4635-4d4f-aeca-dc128a485c69\"}"
+    }
+  ]
+}
