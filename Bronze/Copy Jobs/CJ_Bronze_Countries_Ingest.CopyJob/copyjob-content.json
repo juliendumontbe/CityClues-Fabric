@@ -1,0 +1,262 @@
+{
+  "properties": {
+    "jobMode": "Batch",
+    "source": {
+      "type": "DelimitedText",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "ec6cb84e-c0f8-8301-41a0-93e7dc3ad09d",
+          "rootFolder": "Files"
+        }
+      }
+    },
+    "destination": {
+      "type": "LakehouseTable",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "ec6cb84e-c0f8-8301-41a0-93e7dc3ad09d",
+          "rootFolder": "Tables"
+        }
+      }
+    },
+    "policy": {
+      "timeout": "0.12:00:00",
+      "retry": 0
+    }
+  },
+  "activities": [
+    {
+      "id": "67112f57-022e-4ea2-93a6-895d4ba516c6",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "fileName": "Countryinfo.csv"
+            },
+            "columnDelimiter": ";",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "partitionOption": "None",
+          "writeBehavior": "Overwrite",
+          "datasetSettings": {
+            "table": "Countries_raw"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "#ISO",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "#ISO",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "ISO3",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "ISO3",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "ISO-Numeric",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "ISO-Numeric",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "fips",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "fips",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Country",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "Country",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Capital",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "Capital",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Area(in sq km)",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "Area(in sq km)",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Population",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "Population",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Continent",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "Continent",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "tld",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "tld",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "CurrencyCode",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "CurrencyCode",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "CurrencyName",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "CurrencyName",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Phone",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "Phone",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "Languages",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "Languages",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "geonameid",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "geonameid",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "neighbours",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "neighbours",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "EquivalentFipsCode",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "EquivalentFipsCode",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    }
+  ]
+}

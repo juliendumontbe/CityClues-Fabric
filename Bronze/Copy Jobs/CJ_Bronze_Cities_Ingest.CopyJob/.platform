@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "CopyJob",
+    "displayName": "CJ_Bronze_Cities_Ingest"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "65a63b15-3c10-9527-4d40-a0bc9f4582a2"
+  }
+}

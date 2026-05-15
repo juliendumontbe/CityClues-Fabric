@@ -1,0 +1,284 @@
+{
+  "properties": {
+    "jobMode": "Batch",
+    "source": {
+      "type": "DelimitedText",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "ec6cb84e-c0f8-8301-41a0-93e7dc3ad09d",
+          "rootFolder": "Files"
+        }
+      }
+    },
+    "destination": {
+      "type": "LakehouseTable",
+      "connectionSettings": {
+        "type": "Lakehouse",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "ec6cb84e-c0f8-8301-41a0-93e7dc3ad09d",
+          "rootFolder": "Tables"
+        }
+      }
+    },
+    "policy": {
+      "timeout": "0.12:00:00",
+      "retry": 0
+    }
+  },
+  "activities": [
+    {
+      "id": "e44f825a-b6ca-4f01-9992-e09c0da4152b",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "location": {
+              "type": "LakehouseLocation",
+              "fileName": "Cities15000.csv"
+            },
+            "columnDelimiter": ";",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+          },
+          "storeSettings": {
+            "recursive": true,
+            "enablePartitionDiscovery": false
+          },
+          "formatSettings": {}
+        },
+        "destination": {
+          "partitionOption": "None",
+          "writeBehavior": "Overwrite",
+          "datasetSettings": {
+            "table": "Cities_raw"
+          },
+          "applyVOrder": false
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator",
+          "mappings": [
+            {
+              "source": {
+                "name": "geonameid",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "geonameid",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "name",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "name",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "asciiname",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "asciiname",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "alternatenames",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "alternatenames",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "latitude",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "latitude",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "longitude",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "longitude",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "feature class",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "feature class",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "feature code",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "feature code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "country code",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "country code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "cc2",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "cc2",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "admin1 code",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "admin1 code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "admin2 code",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "admin2 code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "admin3 code",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "admin3 code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "admin4 code",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "admin4 code",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "population",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "population",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "elevation",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "elevation",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "dem",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "dem",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "timezone",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "timezone",
+                "physicalType": "string"
+              }
+            },
+            {
+              "source": {
+                "name": "modification date",
+                "type": "String",
+                "physicalType": "String"
+              },
+              "destination": {
+                "name": "modification date",
+                "physicalType": "string"
+              }
+            }
+          ]
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    }
+  ]
+}

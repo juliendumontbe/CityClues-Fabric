@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "7_PL_Bronze_Gameplay_Ingest"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "d7935eaf-128d-a181-46ce-7a9a7b9addde"
+  }
+}
