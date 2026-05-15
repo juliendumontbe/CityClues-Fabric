@@ -1,0 +1,65 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Build_fact_hint_usage NEW",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "Game_event_clean": {
+      "queryId": "432feb29-60bb-4c26-857b-62a395def1e6",
+      "queryName": "Game_event_clean"
+    },
+    "Q_hint_shown": {
+      "queryId": "d7c080be-0c9a-40a9-87ed-fcb73ac957b6",
+      "queryName": "Q_hint_shown"
+    },
+    "Q_guess": {
+      "queryId": "18e9257a-e597-45a1-9cc1-4547a75a1916",
+      "queryName": "Q_guess"
+    },
+    "Q_session_start": {
+      "queryId": "c3329881-f392-4840-ab9a-38ab7e93786f",
+      "queryName": "Q_session_start"
+    },
+    "Q_session_success": {
+      "queryId": "7de6c331-9f3e-400a-bec1-4dd5045ac0b3",
+      "queryName": "Q_session_success"
+    },
+    "Q_first_correct_guess": {
+      "queryId": "db192fe0-213b-49d6-a640-1423cac15fdb",
+      "queryName": "Q_first_correct_guess"
+    },
+    "Q_fact_hint_usage_base": {
+      "queryId": "700c9b02-d1c2-4e24-ba62-b80658d9b7c1",
+      "queryName": "Q_fact_hint_usage_base"
+    },
+    "Q_Last_Hint_Candidate": {
+      "queryId": "9ec9b292-0ad1-49b8-af49-daea316005ea",
+      "queryName": "Q_Last_Hint_Candidate"
+    },
+    "Q_fact_hint_usage_final": {
+      "queryId": "f49a67d7-4c92-4099-88be-96bdf15e69de",
+      "queryName": "Q_fact_hint_usage_final"
+    },
+    "Q_fact_hint_usage_final_DataDestination": {
+      "queryId": "8b8a228e-1818-47e9-8301-0cdf3626e0be",
+      "queryName": "Q_fact_hint_usage_final_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"98d9f0e4-f4da-4e40-ab39-f636b7a7a878\",\"DatasourceId\":\"bbe386aa-72a2-49d2-a39e-5d0a5bffb1b7\"}"
+    },
+    {
+      "path": "Warehouse",
+      "kind": "Warehouse",
+      "connectionId": "{\"ClusterId\":\"98d9f0e4-f4da-4e40-ab39-f636b7a7a878\",\"DatasourceId\":\"15cc7f6b-4635-4d4f-aeca-dc128a485c69\"}"
+    }
+  ]
+}

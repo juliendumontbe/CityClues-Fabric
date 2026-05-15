@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "12_PL_Gold_City_Context"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "06c1ceb5-b790-9790-41df-aae0b1eb7064"
+  }
+}

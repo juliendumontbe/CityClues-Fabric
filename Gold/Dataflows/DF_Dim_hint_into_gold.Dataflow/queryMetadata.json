@@ -1,0 +1,28 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Dim_hint_into_gold",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "dim_hint": {
+      "queryId": "ca5442f6-d323-4a24-ab47-7e0cd25fc9f9",
+      "queryName": "dim_hint"
+    },
+    "dim_hint_DataDestination": {
+      "queryId": "1e852b64-ae41-4f01-9867-df535b3c644b",
+      "queryName": "dim_hint_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Warehouse",
+      "kind": "Warehouse",
+      "connectionId": "{\"ClusterId\":\"98d9f0e4-f4da-4e40-ab39-f636b7a7a878\",\"DatasourceId\":\"15cc7f6b-4635-4d4f-aeca-dc128a485c69\"}"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.city_difficulty;\n\nCREATE TABLE dbo.city_difficulty AS\n\nWITH initial_base AS (\n    SELECT\n        city_id,\n        MAX(city_score) AS city_score,\n        MAX(difficulty_level) AS difficulty_level\n    FROM dbo.cities_selection_gold\n    GROUP BY city_id\n),\n\ninitial_norm AS (\n    SELECT\n        city_id,\n        difficulty_level,\n        1 - (\n            (city_score - MIN(city_score) OVER ())\n            / NULLIF(MAX(city_score) OVER () - MIN(city_score) OVER (), 0)\n        ) AS difficulty_initial\n    FROM initial_base\n),\n\nreal_base AS (\n    SELECT\n        city_id,\n        event_source,\n        is_simulated,\n        COUNT(*) AS nb_sessions,\n        AVG(CAST(is_success AS FLOAT)) AS success_rate,\n        AVG(CAST(nb_hints_shown AS FLOAT)) AS avg_hints_used,\n        AVG(CAST(avg_response_time_sec AS FLOAT)) AS avg_response_time\n    FROM dbo.fact_game_session\n    GROUP BY\n        city_id,\n        event_source,\n        is_simulated\n),\n\nreal_prep AS (\n    SELECT\n        city_id,\n        event_source,\n        is_simulated,\n        nb_sessions,\n        1 - success_rate AS fail_rate,\n        avg_hints_used,\n        avg_response_time\n    FROM real_base\n),\n\nreal_norm AS (\n    SELECT\n        city_id,\n        event_source,\n        is_simulated,\n        nb_sessions,\n        (fail_rate - MIN(fail_rate) OVER ())\n            / NULLIF(MAX(fail_rate) OVER () - MIN(fail_rate) OVER (), 0) AS fail_rate_norm,\n        (avg_hints_used - MIN(avg_hints_used) OVER ())\n            / NULLIF(MAX(avg_hints_used) OVER () - MIN(avg_hints_used) OVER (), 0) AS hints_norm,\n        (avg_response_time - MIN(avg_response_time) OVER ())\n            / NULLIF(MAX(avg_response_time) OVER () - MIN(avg_response_time) OVER (), 0) AS response_time_norm\n    FROM real_prep\n),\n\nreal_score AS (\n    SELECT\n        city_id,\n        event_source,\n        is_simulated,\n        nb_sessions,\n        0.4 * hints_norm\n      + 0.3 * fail_rate_norm\n      + 0.3 * response_time_norm AS difficulty_real\n    FROM real_norm\n)\n\nSELECT\n    i.city_id,\n    COALESCE(r.nb_sessions, 0) AS nb_sessions,\n    i.difficulty_level,\n    i.difficulty_initial,\n    r.difficulty_real,\n\nCASE\n    WHEN r.nb_sessions IS NULL\n         OR r.nb_sessions < 3\n    THEN i.difficulty_initial\n\n    ELSE 0.3 * i.difficulty_initial\n       + 0.7 * r.difficulty_real\nEND AS difficulty_score,\n\n    r.event_source,\n    r.is_simulated\n\nFROM initial_norm i\nLEFT JOIN real_score r\n    ON i.city_id = r.city_id;",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_gold",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_city_difficulty",
+        "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "INSERT INTO dbo.city_difficulty_history (\n    city_id,\n    calculation_ts,\n    calculation_date,\n    difficulty_initial,\n    difficulty_real,\n    difficulty_score,\n    nb_sessions,\n    event_source,\n    is_simulated\n)\nSELECT\n    cd.city_id,\n    CAST(SYSDATETIME() AS DATETIME2(6)) AS calculation_ts,\n    CAST(SYSDATETIME() AS DATE) AS calculation_date,\n    cd.difficulty_initial,\n    cd.difficulty_real,\n    cd.difficulty_score,\n    cd.nb_sessions,\n    cd.event_source,\n    cd.is_simulated\nFROM (\n    SELECT DISTINCT\n        city_id,\n        difficulty_initial,\n        difficulty_real,\n        difficulty_score,\n        nb_sessions,\n        event_source,\n        is_simulated\n    FROM dbo.city_difficulty\n) cd\nWHERE NOT EXISTS (\n    SELECT 1\n    FROM dbo.city_difficulty_history h\n    WHERE h.city_id = cd.city_id\n      AND h.calculation_date = CAST(SYSDATETIME() AS DATE)\n      AND h.event_source = cd.event_source\n      AND h.is_simulated = cd.is_simulated\n);",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_gold",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_city_difficulty_history",
+        "dependsOn": [
+          {
+            "activity": "Build_city_difficulty",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

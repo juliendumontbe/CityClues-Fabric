@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "10_PL_Gold_Hint_Analytics"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c1763808-e996-8be8-4067-f7b44f85bb24"
+  }
+}

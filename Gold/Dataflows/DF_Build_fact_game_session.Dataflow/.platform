@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "DF_Build_fact_game_session"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3f4fe722-fddd-8a30-44ed-a852e7c3833a"
+  }
+}

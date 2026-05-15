@@ -1,0 +1,95 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "RefreshDataflow",
+        "typeProperties": {
+          "dataflowId": "2c795bf0-df6d-b084-4474-2cbd6a6d6697",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "notifyOption": "NoNotification",
+          "dataflowType": "DataflowFabric"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "DF_Bring_Dim_hint_to_gold",
+        "dependsOn": []
+      },
+      {
+        "type": "RefreshDataflow",
+        "typeProperties": {
+          "dataflowId": "12c7b798-bd54-b75b-4b73-4e14aa086035",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "notifyOption": "NoNotification",
+          "dataflowType": "DataflowFabric"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "DF_Build_fact_hint_usage",
+        "dependsOn": [
+          {
+            "activity": "DF_Bring_Dim_hint_to_gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "DROP TABLE IF EXISTS dbo.hint_performance;\n\nCREATE TABLE dbo.hint_performance (\n    hint_id INT,\n    hint_label VARCHAR(255),\n    hint_stage INT,\n    total_requested INT,\n    total_shown INT,\n    avg_guesses_after_hint DECIMAL(10,2),\n    success_after_hint_rate DECIMAL(10,4),\n    event_source VARCHAR(50),\n    is_simulated BIT\n);\n\nINSERT INTO dbo.hint_performance (\n    hint_id,\n    hint_label,\n    hint_stage,\n    total_requested,\n    total_shown,\n    avg_guesses_after_hint,\n    success_after_hint_rate,\n    event_source,\n    is_simulated\n)\nSELECT \n    dh.hint_id,\n    dh.hint_label,\n    dh.hint_stage,\n    COUNT(*) AS total_requested,\n    COUNT(*) AS total_shown,\n    CAST(AVG(fh.guesses_after_hint * 1.0) AS DECIMAL(10,2)) AS avg_guesses_after_hint,\n    CAST(AVG(fh.is_session_success * 1.0) AS DECIMAL(10,4)) AS success_after_hint_rate,\n    fh.event_source,\n    fh.is_simulated\nFROM [wh_gold].[dbo].[fact_hint_usage] fh\nJOIN [wh_gold].[dbo].[dim_hint_gold] dh\n    ON fh.hint_id = dh.hint_id\nGROUP BY \n    dh.hint_id,\n    dh.hint_label,\n    dh.hint_stage, \n    fh.event_source,\n    fh.is_simulated;",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_gold",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Update_Hint_performance",
+        "dependsOn": [
+          {
+            "activity": "DF_Build_fact_hint_usage",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

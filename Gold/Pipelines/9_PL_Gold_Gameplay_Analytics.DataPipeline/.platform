@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "9_PL_Gold_Gameplay_Analytics",
+    "description": ""
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c7b1d69a-510b-822f-4f08-3fdece3fcce5"
+  }
+}

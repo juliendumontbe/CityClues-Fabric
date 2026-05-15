@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "NB_Export_CityClues"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a3a536cb-adbc-b4f7-481d-6100b0a5fb3e"
+  }
+}

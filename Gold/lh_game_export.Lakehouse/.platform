@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Lakehouse",
+    "displayName": "lh_game_export"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4f335b1f-2d6b-8342-48b6-fa148c839497"
+  }
+}

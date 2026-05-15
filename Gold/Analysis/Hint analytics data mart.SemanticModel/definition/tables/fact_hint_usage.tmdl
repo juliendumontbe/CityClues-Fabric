@@ -1,0 +1,119 @@
+table fact_hint_usage
+	lineageTag: 764417de-ac81-41e8-acc7-7e0abba7a5f9
+	sourceLineageTag: [dbo].[fact_hint_usage]
+
+	column session_id
+		dataType: string
+		lineageTag: a8fb831b-18a4-4c4e-839a-25b849624462
+		sourceLineageTag: session_id
+		summarizeBy: none
+		sourceColumn: session_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5d2512a0-7cdb-451c-8f7f-6a21d592d0d5
+		sourceLineageTag: city_id
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 153f0cfa-5824-4233-8336-dc651d43798a
+		sourceLineageTag: hint_id
+		summarizeBy: none
+		sourceColumn: hint_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_stage
+		dataType: int64
+		formatString: 0
+		lineageTag: d80c625d-01aa-48c5-ac3f-90511ecf2480
+		sourceLineageTag: hint_stage
+		summarizeBy: sum
+		sourceColumn: hint_stage
+
+		annotation SummarizationSetBy = Automatic
+
+	column guesses_before_hint
+		dataType: int64
+		formatString: 0
+		lineageTag: 078007d0-da87-40a9-b852-77057715497c
+		sourceLineageTag: guesses_before_hint
+		summarizeBy: sum
+		sourceColumn: guesses_before_hint
+
+		annotation SummarizationSetBy = Automatic
+
+	column guesses_after_hint
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ba0d787-8450-4782-b42d-79177bee36f0
+		sourceLineageTag: guesses_after_hint
+		summarizeBy: sum
+		sourceColumn: guesses_after_hint
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_last_hint_before_success
+		dataType: int64
+		formatString: 0
+		lineageTag: a573ae21-c274-4d70-a283-242c8d401f9c
+		sourceLineageTag: is_last_hint_before_success
+		summarizeBy: sum
+		sourceColumn: is_last_hint_before_success
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_session_success
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dc450ff-cbf3-4445-8ae1-abb27475665d
+		sourceLineageTag: is_session_success
+		summarizeBy: sum
+		sourceColumn: is_session_success
+
+		annotation SummarizationSetBy = Automatic
+
+	column session_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 22920429-e8c5-475c-bdc4-ea1b93f18f97
+		sourceLineageTag: session_date_key
+		summarizeBy: sum
+		sourceColumn: session_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_source
+		dataType: string
+		lineageTag: 5a3b010d-10b0-445b-a640-5c8a71065118
+		sourceLineageTag: event_source
+		summarizeBy: none
+		sourceColumn: event_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_simulated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f99a7e4b-5e59-4855-8ae1-72557f065b33
+		sourceLineageTag: is_simulated
+		summarizeBy: none
+		sourceColumn: is_simulated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_hint_usage = entity
+		mode: directLake
+		source
+			entityName: fact_hint_usage
+			schemaName: dbo
+			expressionSource: 'DirectLake - wh_gold'
+

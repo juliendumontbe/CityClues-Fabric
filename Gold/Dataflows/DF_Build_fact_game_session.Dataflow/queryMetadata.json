@@ -1,0 +1,66 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "DF_Build_fact_game_session",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "Game_event_clean_base": {
+      "queryId": "e679bcf3-b65a-4640-ac94-bbaf4142e871",
+      "queryName": "Game_event_clean_base"
+    },
+    "Q_session_start": {
+      "queryId": "43e6fcd2-1de9-4a1a-98d0-f72503744253",
+      "queryName": "Q_session_start"
+    },
+    "Q_nb_guesses": {
+      "queryId": "b715e1e2-9269-449e-88f2-acd570eb5d4b",
+      "queryName": "Q_nb_guesses"
+    },
+    "Q_avg_response_time_sec": {
+      "queryId": "8ccc918d-a94d-4a99-8aa6-24b4392f89aa",
+      "queryName": "Q_avg_response_time_sec"
+    },
+    "Q_max_hint_stage_reached": {
+      "queryId": "0a85e4cb-92e9-4a07-b779-211dd6fb2755",
+      "queryName": "Q_max_hint_stage_reached"
+    },
+    "Game_event_clean_final": {
+      "queryId": "c296735b-d0cb-44fa-9b43-1ff75813cf89",
+      "queryName": "Game_event_clean_final"
+    },
+    "Game_session_base": {
+      "queryId": "1c3858a4-281e-49eb-b593-4499a76055ee",
+      "queryName": "Game_session_base"
+    },
+    "Q_is_success, failed or abandoned": {
+      "queryId": "a1f5682c-725a-4110-b7d6-cde93cb04841",
+      "queryName": "Q_is_success, failed or abandoned"
+    },
+    "Q_event_&_session_final": {
+      "queryId": "3535f963-c62a-4952-bf88-ec0b069beaac",
+      "queryName": "Q_event_&_session_final"
+    },
+    "Q_event_&_session_final_DataDestination": {
+      "queryId": "5ae4c0e5-6ecd-4683-9295-aa2a4bc478f4",
+      "queryName": "Q_event_&_session_final_DataDestination",
+      "isHidden": true,
+      "loadEnabled": false
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"98d9f0e4-f4da-4e40-ab39-f636b7a7a878\",\"DatasourceId\":\"bbe386aa-72a2-49d2-a39e-5d0a5bffb1b7\"}"
+    },
+    {
+      "path": "Warehouse",
+      "kind": "Warehouse",
+      "connectionId": "{\"ClusterId\":\"98d9f0e4-f4da-4e40-ab39-f636b7a7a878\",\"DatasourceId\":\"15cc7f6b-4635-4d4f-aeca-dc128a485c69\"}"
+    }
+  ],
+  "fastCombine": true
+}

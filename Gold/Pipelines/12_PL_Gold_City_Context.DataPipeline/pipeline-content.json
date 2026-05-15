@@ -1,0 +1,437 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DataWarehouseSource",
+            "partitionOption": "None",
+            "queryTimeout": "02:00:00",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dim_country"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_silver",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "preCopyScript": "TRUNCATE TABLE dbo.dim_country_gold;",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "writeBehavior": "Insert",
+            "disableMetricsCollection": false,
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dim_country_gold"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_gold",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_dim_country_gold",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DataWarehouseSource",
+            "partitionOption": "None",
+            "queryTimeout": "02:00:00",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dim_city"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_silver",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "preCopyScript": "TRUNCATE TABLE dbo.dim_city_gold;",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "writeBehavior": "Insert",
+            "disableMetricsCollection": false,
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "dim_city_gold"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_gold",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_dim_city_gold",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DataWarehouseSource",
+            "partitionOption": "None",
+            "queryTimeout": "02:00:00",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "weather_city_current"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_silver",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "preCopyScript": "TRUNCATE TABLE dbo.weather_city_current_gold;",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "writeBehavior": "Insert",
+            "disableMetricsCollection": false,
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "weather_city_current_gold"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_gold",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_weather_city_current_gold",
+        "dependsOn": []
+      },
+      {
+        "type": "Copy",
+        "typeProperties": {
+          "source": {
+            "type": "DataWarehouseSource",
+            "partitionOption": "None",
+            "queryTimeout": "02:00:00",
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "cities_selection_view"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_silver",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "sink": {
+            "type": "DataWarehouseSink",
+            "preCopyScript": "TRUNCATE TABLE dbo.cities_selection_gold;",
+            "allowCopyCommand": true,
+            "copyCommandSettings": {},
+            "writeBehavior": "Insert",
+            "disableMetricsCollection": false,
+            "datasetSettings": {
+              "type": "DataWarehouseTable",
+              "typeProperties": {
+                "schema": "dbo",
+                "table": "cities_selection_gold"
+              },
+              "schema": [],
+              "connectionSettings": {
+                "name": "wh_gold",
+                "properties": {
+                  "type": "DataWarehouse",
+                  "typeProperties": {
+                    "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+                    "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+                    "workspaceId": "00000000-0000-0000-0000-000000000000"
+                  },
+                  "externalReferences": {
+                    "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+                  },
+                  "annotations": []
+                }
+              },
+              "annotations": []
+            }
+          },
+          "translator": {
+            "type": "TabularTranslator",
+            "typeConversion": true,
+            "typeConversionSettings": {
+              "allowDataTruncation": true,
+              "treatBooleanAsNumber": false
+            }
+          },
+          "enableStaging": true
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_cities_selection_gold",
+        "dependsOn": []
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "TRUNCATE TABLE dbo.city_game_context;\n\nWITH difficulty_pivot AS (\n    SELECT\n        city_id,\n        MAX(difficulty_initial) AS difficulty_initial,\n\n        MAX(CASE \n            WHEN event_source = 'simulated_generator' AND is_simulated = 1\n            THEN difficulty_score\n        END) AS difficulty_simulated,\n\n        MAX(CASE \n            WHEN event_source = 'game_app' AND is_simulated = 0\n            THEN difficulty_score\n        END) AS difficulty_real,\n\n        MAX(CASE \n            WHEN event_source = 'simulated_generator' AND is_simulated = 1\n            THEN nb_sessions\n        END) AS nb_sessions_simulated,\n\n        MAX(CASE \n            WHEN event_source = 'game_app' AND is_simulated = 0\n            THEN nb_sessions\n        END) AS nb_sessions_real\n    FROM dbo.city_difficulty\n    GROUP BY city_id\n)\n\nINSERT INTO dbo.city_game_context (\n    city_id,\n    city_name,\n    hemisphere,\n    global_quadrant,\n    longitudinal_zone,\n    is_capital,\n    coastal_distance_category,\n    altitude_category,\n    city_category,\n    city_name_length_category,\n    city_word_count_category,\n    city_first_letter,\n    city_last_letter,\n    continent,\n    country_name,\n    country_density_category,\n    country_category,\n    languages_count,\n    currency_name,\n    neighbours_count,\n    temperature,\n    weather_type,\n    timezone_offset_sec,\n    utc_offset_hours,\n    is_weather_available,\n    is_local_time_available,\n    difficulty_initial,\n    difficulty_simulated,\n    difficulty_real,\n    difficulty_score_default,\n    nb_sessions_simulated,\n    nb_sessions_real\n)\nSELECT \n    sel.city_id,\n    ci.city_name,\n    ci.hemisphere,\n    ci.global_quadrant,\n    ci.longitudinal_zone,\n    ci.is_capital,\n    ci.coastal_distance_category,\n    ci.altitude_category,\n    ci.city_category,\n    ci.city_name_length_category,\n    ci.city_word_count_category,\n    ci.city_first_letter,\n    ci.city_last_letter,\n    co.continent,\n    co.country_name,\n    co.country_density_category,\n    co.country_category,\n    co.languages_count,\n    co.currency_name,\n    co.neighbours_count,\n    we.temperature,\n    we.weather_type,\n    we.timezone_offset_sec,\n    CASE\n        WHEN we.timezone_offset_sec IS NOT NULL\n        THEN CAST(we.timezone_offset_sec / 3600.0 AS DECIMAL(4,1))\n        ELSE NULL\n    END AS utc_offset_hours,\n    CASE \n        WHEN we.temperature IS NOT NULL\n         AND we.weather_type IS NOT NULL\n        THEN CAST(1 AS BIT)\n        ELSE CAST(0 AS BIT)\n    END AS is_weather_available,\n    CASE \n        WHEN we.timezone_offset_sec IS NOT NULL\n        THEN CAST(1 AS BIT)\n        ELSE CAST(0 AS BIT)\n    END AS is_local_time_available,\n    dp.difficulty_initial,\n    dp.difficulty_simulated,\n    dp.difficulty_real,\n    dp.difficulty_simulated AS difficulty_score_default,\n    dp.nb_sessions_simulated,\n    dp.nb_sessions_real\nFROM dbo.cities_selection_gold sel\nJOIN dbo.dim_city_gold ci\n    ON CAST(sel.city_id AS BIGINT) = ci.city_id\nJOIN dbo.dim_country_gold co\n    ON ci.country_code = co.country_code\nLEFT JOIN dbo.weather_city_current_gold we\n    ON we.city_id = CAST(sel.city_id AS BIGINT)\nLEFT JOIN difficulty_pivot dp\n    ON dp.city_id = CAST(sel.city_id AS BIGINT);",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_gold",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Build_city_game_context",
+        "dependsOn": [
+          {
+            "activity": "Build_dim_country_gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Build_dim_city_gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Build_weather_city_current_gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Build_cities_selection_gold",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Office365Email",
+        "typeProperties": {
+          "body": "<p>Dear myself,</p>\n<p><br></p>\n<p>FYI, pipeline @{pipeline().PipelineName} ID @{pipeline().Pipeline} did not run correctly.</p>\n<p>Please have a look and fix this ASAP.<br>\n</p>\n<p>Best regards,</p>\n<p>your boss</p>",
+          "to": "julien.dumont.be@gmail.com",
+          "subject": {
+            "value": "@concat(pipeline().PipelineName,' error message')\n",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "ae912a4b-7a13-486a-90c5-ed3db44aad26"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Pipeline_fail_notification",
+        "dependsOn": [
+          {
+            "activity": "Build_city_game_context",
+            "dependencyConditions": [
+              "Failed",
+              "Skipped"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
