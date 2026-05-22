@@ -171,6 +171,8 @@
           "secureOutput": false
         },
         "name": "06 Dim hint",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": []
       },
       {
@@ -299,8 +301,8 @@
         "typeProperties": {
           "parameters": {},
           "waitOnCompletion": true,
-          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
-          "pipelineId": "0cc32949-d492-4595-b0ef-e153a08a5c52",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "a08a5c52-e153-b0ef-4595-d4920cc32949",
           "operationType": "InvokeFabricPipeline"
         },
         "externalReferences": {
@@ -314,8 +316,6 @@
           "secureOutput": false
         },
         "name": "11 City difficulty",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "09 Fact game session",
