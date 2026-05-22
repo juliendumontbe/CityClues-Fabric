@@ -22,19 +22,6 @@
 
 # CELL ********************
 
-# Welcome to your new notebook
-# Type here in the cell editor to add code!
-
-
-# METADATA ********************
-
-# META {
-# META   "language": "python",
-# META   "language_group": "synapse_pyspark"
-# META }
-
-# CELL ********************
-
 spark.sql("DROP TABLE IF EXISTS city_game_context_export")
 spark.sql("DROP TABLE IF EXISTS dim_hint_export")
 
