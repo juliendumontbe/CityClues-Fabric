@@ -1,0 +1,119 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Key_API": "4651e6ee033e277ab4edb7aff08ffbfc"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70",
+          "pipelineId": "06e51d03-cf15-41a9-b626-1e54c2de7274",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "04 Weather ingest",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
+        "dependsOn": []
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {},
+          "waitOnCompletion": true,
+          "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945",
+          "pipelineId": "139c65f5-29a8-42b2-b0bb-aeae062c9145",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "05 Weather transform",
+        "dependsOn": [
+          {
+            "activity": "04 Weather ingest",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {},
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "06c1ceb5-b790-9790-41df-aae0b1eb7064",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "12 City game context",
+        "dependsOn": [
+          {
+            "activity": "05 Weather transform",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {},
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "9accd57d-a692-b38e-48cb-555137a6d7ca",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "15 Game export",
+        "dependsOn": [
+          {
+            "activity": "12 City game context",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
