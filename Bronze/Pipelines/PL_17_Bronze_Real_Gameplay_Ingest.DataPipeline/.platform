@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "Notebook",
-    "displayName": "NB_Drop_game_event_raw_simulated"
+    "type": "DataPipeline",
+    "displayName": "PL_17_Bronze_Real_Gameplay_Ingest"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "7a3b88be-f814-b242-4956-745597183bfb"
+    "logicalId": "bd5e7230-5b2b-8047-48f6-023fc589f331"
   }
 }

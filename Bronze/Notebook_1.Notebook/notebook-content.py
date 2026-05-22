@@ -22,8 +22,6 @@
 
 # CELL ********************
 
-# Welcome to your new notebook
-# Type here in the cell editor to add code!
 # Supprime la table et les données
 spark.sql("DROP TABLE IF EXISTS lh_bronze.Game_event_raw_simulated")
 
