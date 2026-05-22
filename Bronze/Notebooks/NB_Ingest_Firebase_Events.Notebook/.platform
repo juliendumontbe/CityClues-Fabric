@@ -1,11 +1,11 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "DataPipeline",
-    "displayName": "01_PL_Bronze_Reference_Ingest"
+    "type": "Notebook",
+    "displayName": "NB_Ingest_Firebase_Events"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "463749c7-a8b4-8906-4ed0-38b09afbd76f"
+    "logicalId": "34ccbad5-5f93-b310-4f45-da4b6ad406a9"
   }
 }

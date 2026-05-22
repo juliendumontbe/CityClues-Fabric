@@ -46,6 +46,7 @@
       {
         "type": "ForEach",
         "typeProperties": {
+          "batchCount": 3,
           "items": {
             "value": "@activity('Lookup_Selected_Cities').output.value",
             "type": "Expression"

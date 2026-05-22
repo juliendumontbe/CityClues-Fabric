@@ -542,250 +542,33 @@
         ]
       },
       {
-        "type": "Copy",
+        "type": "Script",
         "typeProperties": {
-          "source": {
-            "type": "JsonSource",
-            "formatSettings": {
-              "type": "JsonReadSettings"
-            },
-            "storeSettings": {
-              "type": "AzureBlobStorageReadSettings",
-              "recursive": true,
-              "enablePartitionDiscovery": false
-            },
-            "datasetSettings": {
-              "type": "Json",
-              "typeProperties": {
-                "location": {
-                  "type": "LakehouseLocation",
-                  "folderPath": "Game_event_raw/real"
-                }
+          "scripts": [
+            {
+              "text": {
+                "value": "SELECT\n\n    event_id,\n\n    COUNT(*) AS nb\n\nFROM dbo.Game_event_raw_real\n\nGROUP BY event_id\n\nHAVING COUNT(*) > 1;",
+                "type": "Expression"
               },
-              "schema": {},
-              "connectionSettings": {
-                "name": "lh_bronze",
-                "properties": {
-                  "type": "Lakehouse",
-                  "typeProperties": {
-                    "artifactId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
-                    "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70",
-                    "rootFolder": "Files"
-                  },
-                  "externalReferences": {
-                    "connection": "bbe386aa-72a2-49d2-a39e-5d0a5bffb1b7"
-                  },
-                  "annotations": []
-                }
-              },
-              "annotations": []
+              "type": "Query"
             }
-          },
-          "sink": {
-            "type": "LakehouseTableSink",
-            "tableActionOption": "OverwriteSchema",
-            "applyVOrder": false,
-            "partitionOption": "None",
-            "datasetSettings": {
-              "type": "LakehouseTable",
-              "typeProperties": {
-                "table": "Game_event_raw_real"
-              },
-              "schema": [],
-              "connectionSettings": {
-                "name": "lh_bronze",
-                "properties": {
-                  "type": "Lakehouse",
-                  "typeProperties": {
-                    "artifactId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
-                    "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70",
-                    "rootFolder": "Tables"
-                  },
-                  "externalReferences": {
-                    "connection": "bbe386aa-72a2-49d2-a39e-5d0a5bffb1b7"
-                  },
-                  "annotations": []
-                }
-              },
-              "annotations": []
-            }
-          },
-          "translator": {
-            "type": "TabularTranslator",
-            "mappings": [
-              {
-                "source": {
-                  "name": "firestore_doc_id",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "firestore_doc_id",
-                  "physicalType": "string"
-                }
-              },
-              {
-                "source": {
-                  "name": "event_source",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "event_source",
-                  "physicalType": "string"
-                }
-              },
-              {
-                "source": {
-                  "name": "session_id",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "session_id",
-                  "physicalType": "string"
-                }
-              },
-              {
-                "source": {
-                  "name": "city_id",
-                  "type": "Int64"
-                },
-                "sink": {
-                  "name": "city_id",
-                  "physicalType": "long"
-                }
-              },
-              {
-                "source": {
-                  "name": "is_simulated",
-                  "type": "Int64"
-                },
-                "sink": {
-                  "name": "is_simulated",
-                  "physicalType": "long"
-                }
-              },
-              {
-                "source": {
-                  "name": "event_sequence",
-                  "type": "Int64"
-                },
-                "sink": {
-                  "name": "event_sequence",
-                  "physicalType": "long"
-                }
-              },
-              {
-                "source": {
-                  "name": "event_ts",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "event_ts",
-                  "physicalType": "string"
-                }
-              },
-              {
-                "source": {
-                  "name": "event_type",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "event_type",
-                  "physicalType": "string"
-                }
-              },
-              {
-                "source": {
-                  "name": "event_id",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "event_id",
-                  "physicalType": "string"
-                }
-              },
-              {
-                "source": {
-                  "name": "payload.hint_stage",
-                  "type": "Int64"
-                },
-                "sink": {
-                  "name": "payload_hint_stage",
-                  "physicalType": "long"
-                }
-              },
-              {
-                "source": {
-                  "name": "hint_id",
-                  "type": "Int64"
-                },
-                "sink": {
-                  "name": "hint_id",
-                  "physicalType": "long"
-                }
-              },
-              {
-                "source": {
-                  "name": "payload.response_time_sec",
-                  "type": "Int64"
-                },
-                "sink": {
-                  "name": "payload_response_time_sec",
-                  "physicalType": "long"
-                }
-              },
-              {
-                "source": {
-                  "name": "payload.session_result",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "payload_session_result",
-                  "physicalType": "string"
-                }
-              },
-              {
-                "source": {
-                  "name": "payload.difficulty_at_start",
-                  "type": "Double"
-                },
-                "sink": {
-                  "name": "payload_difficulty_at_start",
-                  "physicalType": "double"
-                }
-              },
-              {
-                "source": {
-                  "name": "payload.is_correct",
-                  "type": "Int16"
-                },
-                "sink": {
-                  "name": "payload_is_correct",
-                  "physicalType": "integer"
-                }
-              },
-              {
-                "source": {
-                  "name": "payload.guess_text",
-                  "type": "String"
-                },
-                "sink": {
-                  "name": "payload_guess_text",
-                  "physicalType": "string"
-                }
-              }
-            ],
-            "typeConversion": true,
-            "typeConversionSettings": {
-              "allowDataTruncation": true,
-              "treatBooleanAsNumber": false
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
             },
-            "columnFlattenSettings": {
-              "treatArrayAsString": false,
-              "treatStructAsString": false,
-              "flattenColumnDelimiter": "."
-            }
-          },
-          "enableStaging": false
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
         },
         "policy": {
           "timeout": "0.12:00:00",
@@ -794,7 +577,7 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Build_Game_event_raw_real_OLD",
+        "name": "Check_duplicated_event_id",
         "state": "Inactive",
         "onInactiveMarkAs": "Succeeded",
         "dependsOn": []
