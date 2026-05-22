@@ -7,14 +7,22 @@
   "queryGroups": [],
   "documentLocale": "en-US",
   "queriesMetadata": {
+    "Game_event_raw_real": {
+      "queryId": "be0003d9-e7a8-4d0c-a320-e38a50f01c1a",
+      "queryName": "Game_event_raw_real"
+    },
     "Game_event_raw_simulated": {
-      "queryId": "bb08e675-c00d-4cc3-82cd-35667e2df29c",
-      "queryName": "Game_event_raw_simulated",
+      "queryId": "c29acc80-c6a5-43f1-9d2d-600600026540",
+      "queryName": "Game_event_raw_simulated"
+    },
+    "Append": {
+      "queryId": "3d90c871-9643-4133-a175-00bfd1fd64f5",
+      "queryName": "Append",
       "loadEnabled": false
     },
-    "Game_event_raw_simulated_DataDestination": {
-      "queryId": "8c9648d1-1e2a-467b-8146-5066a0207680",
-      "queryName": "Game_event_raw_simulated_DataDestination",
+    "Append_DataDestination": {
+      "queryId": "a7c8b9a7-125c-41e1-bb67-dd4766fd7045",
+      "queryName": "Append_DataDestination",
       "isHidden": true,
       "loadEnabled": false
     }

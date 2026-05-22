@@ -4,7 +4,7 @@
       {
         "type": "RefreshDataflow",
         "typeProperties": {
-          "dataflowId": "efaa6d28-6cb1-8982-44aa-0f7c22e77776",
+          "dataflowId": "0aa1df56-ab5b-8eb3-4fba-5428aaa6f0b6",
           "workspaceId": "00000000-0000-0000-0000-000000000000",
           "notifyOption": "NoNotification",
           "dataflowType": "DataflowFabric"
@@ -25,7 +25,7 @@
           "scripts": [
             {
               "text": {
-                "value": "TRUNCATE TABLE [wh_silver].[dbo].[game_session];\nINSERT INTO [wh_silver].[dbo].[game_session] (\n    session_id,\n    city_id,\n    session_start_ts,\n    session_end_ts,\n    session_duration_sec,\n    session_status,\n    session_result,\n    difficulty_at_start,\n    nb_hints_requested,\n    nb_hints_shown,\n    event_source,\n    is_simulated\n)\nSELECT\n    session_id,\n    MAX(city_id) AS city_id,\n    MIN(event_ts) AS session_start_ts,\n    MAX(event_ts) AS session_end_ts,\n    DATEDIFF(SECOND, MIN(event_ts), MAX(event_ts)) AS session_duration_sec,\n    CASE\n        WHEN MAX(CASE WHEN event_type = 'abandoned' THEN 1 ELSE 0 END) = 1 THEN 'abandoned'\n        WHEN MAX(CASE WHEN event_type = 'session_ended' THEN 1 ELSE 0 END) = 1 THEN 'completed'\n        ELSE 'in_progress'\n    END AS session_status,\n    MAX(session_result) AS session_result,\n    MAX(CASE \n        WHEN event_type = 'session_started' THEN difficulty_at_start \n        ELSE NULL \n    END) AS difficulty_at_start,\n    SUM(CASE WHEN event_type = 'hint_requested' THEN 1 ELSE 0 END) AS nb_hints_requested,\n    SUM(CASE WHEN event_type = 'hint_shown' THEN 1 ELSE 0 END) AS nb_hints_shown,\n    CASE\n        WHEN COUNT(DISTINCT event_source) = 1 THEN MAX(event_source)\n        ELSE 'mixed'\n    END AS event_source,\n    MAX(CAST(is_simulated AS INT)) AS is_simulated\nFROM [lh_silver].[dbo].[Game_event_clean]\nGROUP BY session_id;",
+                "value": "TRUNCATE TABLE [wh_silver].[dbo].[game_session];\nINSERT INTO [wh_silver].[dbo].[game_session] (\n    session_id,\n    city_id,\n    session_start_ts,\n    session_end_ts,\n    session_duration_sec,\n    session_status,\n    session_result,\n    difficulty_at_start,\n    nb_hints_requested,\n    nb_hints_shown,\n    event_source,\n    is_simulated\n)\nSELECT\n    session_id,\n    MAX(city_id) AS city_id,\n    MIN(event_ts) AS session_start_ts,\n    MAX(event_ts) AS session_end_ts,\n    DATEDIFF(SECOND, MIN(event_ts), MAX(event_ts)) AS session_duration_sec,\n    CASE\n        WHEN MAX(CASE WHEN event_type = 'abandoned' THEN 1 ELSE 0 END) = 1 THEN 'abandoned'\n        WHEN MAX(CASE WHEN event_type = 'session_ended' THEN 1 ELSE 0 END) = 1 THEN 'completed'\n        ELSE 'in_progress'\n    END AS session_status,\n    MAX(session_result) AS session_result,\n    MAX(CASE \n        WHEN event_type = 'session_started' THEN difficulty_at_start\n        ELSE NULL \n    END) AS difficulty_at_start,\n    SUM(CASE WHEN event_type = 'hint_requested' THEN 1 ELSE 0 END) AS nb_hints_requested,\n    SUM(CASE WHEN event_type = 'hint_shown' THEN 1 ELSE 0 END) AS nb_hints_shown,\n    CASE\n        WHEN COUNT(DISTINCT event_source) = 1 THEN MAX(event_source)\n        ELSE 'mixed'\n    END AS event_source,\n    MAX(CAST(is_simulated AS INT)) AS is_simulated\nFROM [lh_silver].[dbo].[Game_event_clean]\nGROUP BY session_id;",
                 "type": "Expression"
               },
               "type": "Query"
@@ -38,9 +38,9 @@
           "properties": {
             "type": "DataWarehouse",
             "typeProperties": {
-              "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+              "artifactId": "6abfd378-ded1-974b-43a8-4c6edb2942b9",
               "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
-              "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
             },
             "externalReferences": {
               "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
