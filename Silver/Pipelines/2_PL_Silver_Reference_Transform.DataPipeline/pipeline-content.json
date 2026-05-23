@@ -78,7 +78,14 @@
           "secureOutput": false
         },
         "name": "Build_cities_clean",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Script",
@@ -114,7 +121,14 @@
           "secureOutput": false
         },
         "name": "Build_coastal_distance_clean",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Script",
@@ -161,6 +175,113 @@
             "activity": "Build_cities_clean",
             "dependencyConditions": [
               "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "START",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "TableName": "dim_city&country",
+            "LayerName": "Silver",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Start",
+        "dependsOn": []
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "SUCCESS",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "TableName": "dim_city&country",
+            "LayerName": "Silver",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Success",
+        "dependsOn": [
+          {
+            "activity": "Build_dim_country",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "FAILED",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "TableName": "dim_city&country",
+            "LayerName": "Silver",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Fail",
+        "dependsOn": [
+          {
+            "activity": "Build_dim_country",
+            "dependencyConditions": [
+              "Failed"
             ]
           }
         ]
