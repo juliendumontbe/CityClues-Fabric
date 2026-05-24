@@ -2,7 +2,7 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "DataPipeline",
-    "displayName": "3_PL_Silver_Add_City_Override"
+    "displayName": "13_PL_Silver_Add_City_Override"
   },
   "config": {
     "version": "2.0",
