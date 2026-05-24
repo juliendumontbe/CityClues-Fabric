@@ -1,0 +1,62 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "DECLARE @Action VARCHAR(10) = '@{pipeline().parameters.Action}';\nDECLARE @PipelineName VARCHAR(255) = '@{pipeline().parameters.PipelineName}';\nDECLARE @TableName VARCHAR(255) = '@{pipeline().parameters.TableName}';\nDECLARE @LayerName VARCHAR(50) = '@{pipeline().parameters.LayerName}';\nDECLARE @ErrorMessage VARCHAR(MAX) = '@{pipeline().parameters.ErrorMessage}';\n\n-- ---------------------------------------------------------\n-- 🚀 CASE 1 : ACTION = START\n-- ---------------------------------------------------------\nIF @Action = 'START'\nBEGIN\n    DECLARE @new_run_id UNIQUEIDENTIFIER = NEWID();\n\n    INSERT INTO wh_gold.dbo.pipeline_run_log (\n        log_id, run_id, pipeline_name, pipeline_step, layer_name, \n        status, start_time, end_time, duration_seconds, rows_inserted, error_message, run_date\n    )\n    VALUES (\n        NEWID(), @new_run_id, @PipelineName, @TableName, @LayerName,\n        'STARTED', SYSDATETIME(), NULL, NULL, NULL, NULL, CAST(SYSDATETIME() AS DATE)\n    );\nEND\n\n-- ---------------------------------------------------------\n-- ✅ CASE 2 : ACTION = SUCCESS\n-- ---------------------------------------------------------\nELSE IF @Action = 'SUCCESS'\nBEGIN\n    DECLARE @start_time_success DATETIME2(6);\n    DECLARE @run_id_success UNIQUEIDENTIFIER;\n    DECLARE @rows_count INT = NULL; -- Par défaut à NULL si la table n'existe pas ou est un nom logique\n    DECLARE @sql NVARCHAR(MAX);\n\n    -- 1. Récupération du run_id et du start_time de l'étape STARTED\n    SELECT TOP 1 @start_time_success = start_time, @run_id_success = run_id\n    FROM wh_gold.dbo.pipeline_run_log    \n    WHERE pipeline_name = @PipelineName AND pipeline_step = @TableName AND status = 'STARTED'\n    ORDER BY start_time DESC;\n\n    -- 2. Compter dynamiquement les lignes de la table cible avec sécurité TRY/CATCH\n    BEGIN TRY\n        -- Si @TableName contient déjà des points (ex: lh_bronze.dbo.firebase_ingestion), \n        -- on l'intègre directement sans rajouter de \"dbo.\" devant.\n        SET @sql = N'SELECT @cnt = COUNT(*) FROM ' + @TableName;\n        EXEC sp_executesql @sql, N'@cnt INT OUTPUT', @cnt = @rows_count OUTPUT;\n    END TRY\n    BEGIN CATCH\n        -- Si @TableName est un nom descriptif (ex: 'Ingestion_Firebase') ou si la table n'existe pas,\n        -- SQL va générer une erreur. Le CATCH l'intercepte proprement pour éviter de faire planter votre pipeline.\n        SET @rows_count = NULL; \n    END CATCH\n\n    -- 3. Insertion du log de succès\n    INSERT INTO wh_gold.dbo.pipeline_run_log (\n        log_id, run_id, pipeline_name, pipeline_step, layer_name, \n        status, start_time, end_time, duration_seconds, rows_inserted, error_message, run_date\n    )\n    VALUES (\n        NEWID(), @run_id_success, @PipelineName, @TableName, @LayerName,\n        'SUCCESS', @start_time_success, SYSDATETIME(), DATEDIFF(SECOND, @start_time_success, SYSDATETIME()), @rows_count, NULL, CAST(SYSDATETIME() AS DATE)\n    );\nEND\n\n-- ---------------------------------------------------------\n-- ❌ CASE 3 : ACTION = FAILED\n-- ---------------------------------------------------------\nELSE IF @Action = 'FAILED'\nBEGIN\n    DECLARE @start_time_fail DATETIME2(6);\n    DECLARE @run_id_fail UNIQUEIDENTIFIER;\n\n    -- 1. Récupération du run_id et du start_time\n    SELECT TOP 1 @start_time_fail = start_time, @run_id_fail = run_id\n    FROM wh_gold.dbo.pipeline_run_log\n    WHERE pipeline_name = @PipelineName AND pipeline_step = @TableName AND status = 'STARTED'\n    ORDER BY start_time DESC;\n\n    -- 2. Insertion du log d'échec\n    INSERT INTO wh_gold.dbo.pipeline_run_log (\n        log_id, run_id, pipeline_name, pipeline_step, layer_name, \n        status, start_time, end_time, duration_seconds, rows_inserted, error_message, run_date\n    )\n    VALUES (\n        NEWID(), @run_id_fail, @PipelineName, @TableName, @LayerName,\n        'FAILED', @start_time_fail, SYSDATETIME(), DATEDIFF(SECOND, @start_time_fail, SYSDATETIME()), 0, ISNULL(@ErrorMessage, 'Unknown Error'), CAST(SYSDATETIME() AS DATE)\n    );\nEND",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_gold",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "00000000-0000-0000-0000-000000000000"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Unified_Script_Logging",
+        "dependsOn": []
+      }
+    ],
+    "parameters": {
+      "Action": {
+        "type": "string"
+      },
+      "PipelineName": {
+        "type": "string"
+      },
+      "TableName": {
+        "type": "string"
+      },
+      "LayerName": {
+        "type": "string"
+      },
+      "ErrorMessage": {
+        "type": "string"
+      }
+    }
+  }
+}

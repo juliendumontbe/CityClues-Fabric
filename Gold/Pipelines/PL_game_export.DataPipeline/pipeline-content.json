@@ -15,7 +15,14 @@
           "secureOutput": false
         },
         "name": "NB_Game_Export_Cleanup",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Copy",
@@ -220,6 +227,113 @@
             "activity": "Copy_dim_hint_to_lh_game_export",
             "dependencyConditions": [
               "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "START",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "export_cityclues",
+            "LayerName": "Gold",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Start",
+        "dependsOn": []
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "SUCCESS",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "export_cityclues",
+            "LayerName": "Gold",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Success",
+        "dependsOn": [
+          {
+            "activity": "NB_Export_CityClues",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "FAILED",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "export_cityclues",
+            "LayerName": "Gold",
+            "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Fail",
+        "dependsOn": [
+          {
+            "activity": "NB_Export_CityClues",
+            "dependencyConditions": [
+              "Failed"
             ]
           }
         ]

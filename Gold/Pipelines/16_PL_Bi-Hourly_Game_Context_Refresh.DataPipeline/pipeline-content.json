@@ -23,8 +23,6 @@
           "secureOutput": false
         },
         "name": "04 Weather ingest",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
         "dependsOn": []
       },
       {

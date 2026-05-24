@@ -83,7 +83,14 @@
           "secureOutput": false
         },
         "name": "Build_dim_country_gold",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Copy",
@@ -167,7 +174,14 @@
           "secureOutput": false
         },
         "name": "Build_dim_city_gold",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Copy",
@@ -251,7 +265,14 @@
           "secureOutput": false
         },
         "name": "Build_weather_city_current_gold",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Copy",
@@ -335,7 +356,14 @@
           "secureOutput": false
         },
         "name": "Build_cities_selection_gold",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Script",
@@ -404,7 +432,7 @@
       {
         "type": "Office365Email",
         "typeProperties": {
-          "body": "<p>Dear myself,</p>\n<p><br></p>\n<p>FYI, pipeline @{pipeline().PipelineName} ID @{pipeline().Pipeline} did not run correctly.</p>\n<p>Please have a look and fix this ASAP.<br>\n</p>\n<p>Best regards,</p>\n<p>your boss</p>",
+          "body": "<p>Dear Julien,</p>\n<p>For your information, pipeline @{pipeline().PipelineName} ID @{pipeline().Pipeline} did not run correctly.</p>\n<p>Please have a look and fix this ASAP.<br>\n</p>\n<p>Best regards,</p>\n<p>Fabric</p>",
           "to": "julien.dumont.be@gmail.com",
           "subject": {
             "value": "@concat(pipeline().PipelineName,' error message')\n",
@@ -422,12 +450,121 @@
           "secureOutput": false
         },
         "name": "Pipeline_fail_notification",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Build_city_game_context",
             "dependencyConditions": [
               "Failed",
               "Skipped"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "START",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "city_game_context",
+            "LayerName": "Gold",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Start",
+        "dependsOn": []
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "SUCCESS",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "city_game_context",
+            "LayerName": "Gold",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Success",
+        "dependsOn": [
+          {
+            "activity": "Build_city_game_context",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "FAILED",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "city_game_context",
+            "LayerName": "Gold",
+            "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Fail",
+        "dependsOn": [
+          {
+            "activity": "Build_city_game_context",
+            "dependencyConditions": [
+              "Failed"
             ]
           }
         ]

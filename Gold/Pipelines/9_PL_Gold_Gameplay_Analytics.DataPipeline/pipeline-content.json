@@ -19,7 +19,7 @@
         "name": "Build_fact_game_session",
         "dependsOn": [
           {
-            "activity": "Start log",
+            "activity": "Log_Start",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -27,33 +27,25 @@
         ]
       },
       {
-        "type": "Script",
+        "type": "InvokePipeline",
         "typeProperties": {
-          "scripts": [
-            {
-              "text": {
-                "value": "DECLARE @run_id UNIQUEIDENTIFIER = NEWID();\r\n\r\nINSERT INTO dbo.pipeline_run_log (\r\n    log_id,\r\n    run_id,\r\n    pipeline_name,\r\n    pipeline_step,\r\n    layer_name,\r\n    status,\r\n    start_time,\r\n    end_time,\r\n    duration_seconds,\r\n    rows_inserted,\r\n    error_message,\r\n    run_date\r\n)\r\nVALUES (\r\n    NEWID(),\r\n    @run_id,\r\n    'PL_Gold_Gameplay_Analytics',\r\n    'fact_game_session',\r\n    'Gold',\r\n    'STARTED',\r\n    SYSDATETIME(),\r\n    NULL,\r\n    NULL,\r\n    NULL,\r\n    NULL,\r\n    CAST(SYSDATETIME() AS DATE)\r\n);",
-                "type": "Expression"
-              },
-              "type": "Query"
-            }
-          ],
-          "scriptBlockExecutionTimeout": "02:00:00"
+          "parameters": {
+            "Action": "START",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "fact_game_session",
+            "LayerName": "Gold",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
         },
-        "connectionSettings": {
-          "name": "wh_gold",
-          "properties": {
-            "type": "DataWarehouse",
-            "typeProperties": {
-              "artifactId": "5f1f2aeb-8445-4b8a-9f7b-5d8106992b08",
-              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
-              "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53"
-            },
-            "externalReferences": {
-              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
-            },
-            "annotations": []
-          }
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
         },
         "policy": {
           "timeout": "0.12:00:00",
@@ -62,37 +54,29 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Start log",
+        "name": "Log_Start",
         "dependsOn": []
       },
       {
-        "type": "Script",
+        "type": "InvokePipeline",
         "typeProperties": {
-          "scripts": [
-            {
-              "text": {
-                "value": "DECLARE @start_time DATETIME2(6);\nDECLARE @run_id UNIQUEIDENTIFIER;\n\nSELECT TOP 1\n    @start_time = start_time,\n    @run_id = run_id\nFROM dbo.pipeline_run_log\nWHERE pipeline_name = 'PL_Gold_Gameplay_Analytics'\n  AND pipeline_step = 'fact_game_session'\n  AND status = 'STARTED'\nORDER BY start_time DESC;\n\nINSERT INTO dbo.pipeline_run_log (\n    log_id,\n    run_id,\n    pipeline_name,\n    pipeline_step,\n    layer_name,\n    status,\n    start_time,\n    end_time,\n    duration_seconds,\n    rows_inserted,\n    error_message,\n    run_date\n)\nSELECT\n    NEWID(),\n    @run_id,\n    'PL_Gold_Gameplay_Analytics',\n    'fact_game_session',\n    'Gold',\n    'SUCCESS',\n    @start_time,\n    SYSDATETIME(),\n    DATEDIFF(SECOND, @start_time, SYSDATETIME()),\n    COUNT(*),\n    NULL,\n    CAST(SYSDATETIME() AS DATE)\nFROM dbo.fact_game_session;",
-                "type": "Expression"
-              },
-              "type": "Query"
-            }
-          ],
-          "scriptBlockExecutionTimeout": "02:00:00"
+          "parameters": {
+            "Action": "SUCCESS",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "fact_game_session",
+            "LayerName": "Gold",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
         },
-        "connectionSettings": {
-          "name": "wh_gold",
-          "properties": {
-            "type": "DataWarehouse",
-            "typeProperties": {
-              "artifactId": "5f1f2aeb-8445-4b8a-9f7b-5d8106992b08",
-              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
-              "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53"
-            },
-            "externalReferences": {
-              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
-            },
-            "annotations": []
-          }
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
         },
         "policy": {
           "timeout": "0.12:00:00",
@@ -101,7 +85,7 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Success log",
+        "name": "Log_Success",
         "dependsOn": [
           {
             "activity": "Build_fact_game_session",
@@ -112,33 +96,25 @@
         ]
       },
       {
-        "type": "Script",
+        "type": "InvokePipeline",
         "typeProperties": {
-          "scripts": [
-            {
-              "text": {
-                "value": "DECLARE @start_time DATETIME2(6);\r\nDECLARE @run_id UNIQUEIDENTIFIER;\r\n\r\nSELECT TOP 1\r\n    @start_time = start_time,\r\n    @run_id = run_id\r\nFROM dbo.pipeline_run_log\r\nWHERE pipeline_name = 'PL_Gold_Gameplay_Analytics'\r\n  AND pipeline_step = 'fact_game_session'\r\n  AND status = 'STARTED'\r\nORDER BY start_time DESC;\r\n\r\nINSERT INTO dbo.pipeline_run_log (\r\n    log_id,\r\n    run_id,\r\n    pipeline_name,\r\n    pipeline_step,\r\n    layer_name,\r\n    status,\r\n    start_time,\r\n    end_time,\r\n    duration_seconds,\r\n    rows_inserted,\r\n    error_message,\r\n    run_date\r\n)\r\nVALUES (\r\n    NEWID(),\r\n    @run_id,\r\n    'PL_Gold_Gameplay_Analytics',\r\n    'fact_game_session',\r\n    'Gold',\r\n    'FAILED',\r\n    @start_time,\r\n    SYSDATETIME(),\r\n    DATEDIFF(SECOND, @start_time, SYSDATETIME()),\r\n    0,\r\n    'Pipeline failed during fact_game_session build',\r\n    CAST(SYSDATETIME() AS DATE)\r\n);",
-                "type": "Expression"
-              },
-              "type": "Query"
-            }
-          ],
-          "scriptBlockExecutionTimeout": "02:00:00"
+          "parameters": {
+            "Action": "FAILED",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
+            "TableName": "fact_game_session",
+            "LayerName": "Gold",
+            "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "operationType": "InvokeFabricPipeline"
         },
-        "connectionSettings": {
-          "name": "wh_gold",
-          "properties": {
-            "type": "DataWarehouse",
-            "typeProperties": {
-              "artifactId": "5f1f2aeb-8445-4b8a-9f7b-5d8106992b08",
-              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
-              "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53"
-            },
-            "externalReferences": {
-              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
-            },
-            "annotations": []
-          }
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
         },
         "policy": {
           "timeout": "0.12:00:00",
@@ -147,7 +123,7 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Fail log",
+        "name": "Log_Fail",
         "dependsOn": [
           {
             "activity": "Build_fact_game_session",
