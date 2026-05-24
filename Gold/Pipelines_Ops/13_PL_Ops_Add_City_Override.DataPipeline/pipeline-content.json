@@ -2,62 +2,12 @@
   "properties": {
     "activities": [
       {
-        "type": "RefreshDataflow",
-        "typeProperties": {
-          "dataflowId": "2c795bf0-df6d-b084-4474-2cbd6a6d6697",
-          "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "notifyOption": "NoNotification",
-          "dataflowType": "DataflowFabric"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "DF_Bring_Dim_hint_to_gold",
-        "dependsOn": [
-          {
-            "activity": "Log_Start",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
-        "type": "RefreshDataflow",
-        "typeProperties": {
-          "dataflowId": "12c7b798-bd54-b75b-4b73-4e14aa086035",
-          "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "notifyOption": "NoNotification",
-          "dataflowType": "DataflowFabric"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "DF_Build_fact_hint_usage",
-        "dependsOn": [
-          {
-            "activity": "DF_Bring_Dim_hint_to_gold",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
         "type": "Script",
         "typeProperties": {
           "scripts": [
             {
               "text": {
-                "value": "DROP TABLE IF EXISTS dbo.hint_performance;\n\nCREATE TABLE dbo.hint_performance (\n    hint_id INT,\n    hint_label VARCHAR(255),\n    hint_stage INT,\n    total_requested INT,\n    total_shown INT,\n    avg_guesses_after_hint DECIMAL(10,2),\n    success_after_hint_rate DECIMAL(10,4),\n    event_source VARCHAR(50),\n    is_simulated BIT\n);\n\nINSERT INTO dbo.hint_performance (\n    hint_id,\n    hint_label,\n    hint_stage,\n    total_requested,\n    total_shown,\n    avg_guesses_after_hint,\n    success_after_hint_rate,\n    event_source,\n    is_simulated\n)\nSELECT \n    dh.hint_id,\n    dh.hint_label,\n    dh.hint_stage,\n    COUNT(*) AS total_requested,\n    COUNT(*) AS total_shown,\n    CAST(AVG(fh.guesses_after_hint * 1.0) AS DECIMAL(10,2)) AS avg_guesses_after_hint,\n    CAST(AVG(fh.is_session_success * 1.0) AS DECIMAL(10,4)) AS success_after_hint_rate,\n    fh.event_source,\n    fh.is_simulated\nFROM [wh_gold].[dbo].[fact_hint_usage] fh\nJOIN [wh_gold].[dbo].[dim_hint_gold] dh\n    ON fh.hint_id = dh.hint_id\nGROUP BY \n    dh.hint_id,\n    dh.hint_label,\n    dh.hint_stage, \n    fh.event_source,\n    fh.is_simulated;",
+                "value": "SELECT\n    dc.city_id,\n    dc.city_name,\n    dc.country_code,\n    dc.city_pop,\n    dc.is_capital,\n    dc.city_score,\n    CASE \n        WHEN cs.city_id IS NOT NULL THEN 'Y'\n        ELSE 'N'\n    END AS already_in_selection,\n    cs.selection_source\nFROM dbo.dim_city dc\nLEFT JOIN dbo.cities_selection_view cs\n    ON dc.city_id = cs.city_id\nWHERE dc.city_id = @{pipeline().parameters.p_city_id};",
                 "type": "Expression"
               },
               "type": "Query"
@@ -66,13 +16,13 @@
           "scriptBlockExecutionTimeout": "02:00:00"
         },
         "connectionSettings": {
-          "name": "wh_gold",
+          "name": "wh_silver",
           "properties": {
             "type": "DataWarehouse",
             "typeProperties": {
-              "artifactId": "06992b08-5d81-9f7b-4b8a-84455f1f2aeb",
-              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xkekpygy4beunhvurhzg3ca2km.datawarehouse.fabric.microsoft.com",
-              "workspaceId": "00000000-0000-0000-0000-000000000000"
+              "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
             },
             "externalReferences": {
               "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
@@ -87,10 +37,102 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Update_Hint_performance",
+        "name": "Check_candidate_city_and_selection_status",
         "dependsOn": [
           {
-            "activity": "DF_Build_fact_hint_usage",
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "INSERT INTO dbo.city_selection_overrides (\r\n    city_id,\r\n    is_active,\r\n    override_reason,\r\n    added_by,\r\n    added_at\r\n)\r\nSELECT\r\n    dc.city_id,\r\n    1,\r\n    'Demo live - manual update',\r\n    'Julien',\r\n    CAST(SYSDATETIME() AS DATETIME2(6))\r\nFROM dbo.dim_city dc\r\nWHERE dc.city_id = @{pipeline().parameters.p_city_id}\r\n  AND NOT EXISTS (\r\n      SELECT 1\r\n      FROM dbo.city_selection_overrides o\r\n      WHERE o.city_id = dc.city_id\r\n        AND o.is_active = 1\r\n  );",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Insert_city_override_if_needed",
+        "dependsOn": [
+          {
+            "activity": "Check_candidate_city_and_selection_status",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Script",
+        "typeProperties": {
+          "scripts": [
+            {
+              "text": {
+                "value": "SELECT * \nFROM dbo.cities_selection_view\nWHERE city_id = @{pipeline().parameters.p_city_id}",
+                "type": "Expression"
+              },
+              "type": "Query"
+            }
+          ],
+          "scriptBlockExecutionTimeout": "02:00:00"
+        },
+        "connectionSettings": {
+          "name": "wh_silver",
+          "properties": {
+            "type": "DataWarehouse",
+            "typeProperties": {
+              "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
+              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
+              "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
+            },
+            "externalReferences": {
+              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
+            },
+            "annotations": []
+          }
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Check_selected_city",
+        "dependsOn": [
+          {
+            "activity": "Insert_city_override_if_needed",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -102,9 +144,12 @@
         "typeProperties": {
           "parameters": {
             "Action": "START",
-            "PipelineName": "@pipeline().PipelineName",
-            "TableName": "fact_hint_usage",
-            "LayerName": "Gold",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "TableName": "city_override",
+            "LayerName": "Silver",
             "ErrorMessage": "null"
           },
           "waitOnCompletion": true,
@@ -130,9 +175,12 @@
         "typeProperties": {
           "parameters": {
             "Action": "SUCCESS",
-            "PipelineName": "@pipeline().PipelineName",
-            "TableName": "fact_hint_usage",
-            "LayerName": "Gold",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "TableName": "city_override",
+            "LayerName": "Silver",
             "ErrorMessage": "null"
           },
           "waitOnCompletion": true,
@@ -153,7 +201,7 @@
         "name": "Log_Success",
         "dependsOn": [
           {
-            "activity": "Update_Hint_performance",
+            "activity": "Check_selected_city",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -165,10 +213,13 @@
         "typeProperties": {
           "parameters": {
             "Action": "FAILED",
-            "PipelineName": "@pipeline().PipelineName",
-            "TableName": "fact_hint_usage",
-            "LayerName": "Gold",
-            "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "TableName": "city_override",
+            "LayerName": "Silver",
+            "ErrorMessage": "null"
           },
           "waitOnCompletion": true,
           "workspaceId": "00000000-0000-0000-0000-000000000000",
@@ -188,13 +239,19 @@
         "name": "Log_Fail",
         "dependsOn": [
           {
-            "activity": "Update_Hint_performance",
+            "activity": "Check_selected_city",
             "dependencyConditions": [
               "Failed"
             ]
           }
         ]
       }
-    ]
+    ],
+    "parameters": {
+      "p_city_id": {
+        "type": "string",
+        "defaultValue": "3165524"
+      }
+    }
   }
 }

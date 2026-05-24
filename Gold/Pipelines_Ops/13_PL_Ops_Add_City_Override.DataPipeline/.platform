@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "13_PL_Ops_Add_City_Override"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "810f191a-6626-b18a-429b-00f9ed376902"
+  }
+}

@@ -1,0 +1,106 @@
+table city_difficulty_history
+	lineageTag: d6e86020-ea13-4f69-8c5f-6e3a790c19b6
+	sourceLineageTag: [dbo].[city_difficulty_history]
+
+	column city_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5039a7e1-5d65-4957-a41c-7024feb0fb0f
+		sourceLineageTag: city_id
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculation_ts
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: dbd6b402-b463-499c-b034-8ac0ed50c5ce
+		sourceLineageTag: calculation_ts
+		summarizeBy: none
+		sourceColumn: calculation_ts
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculation_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 8c0501d0-9c1e-4153-a671-4f18faa619ff
+		sourceLineageTag: calculation_date
+		summarizeBy: none
+		sourceColumn: calculation_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column difficulty_initial
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 72153e70-1672-48b3-8f20-b85f179379f4
+		sourceLineageTag: difficulty_initial
+		summarizeBy: none
+		sourceColumn: difficulty_initial
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column difficulty_real
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 796402e4-5621-4da2-8153-ec2273103c03
+		sourceLineageTag: difficulty_real
+		summarizeBy: none
+		sourceColumn: difficulty_real
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column difficulty_score
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 1236fbac-58cc-4272-99fb-95b6406c5b9c
+		sourceLineageTag: difficulty_score
+		summarizeBy: none
+		sourceColumn: difficulty_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column nb_sessions
+		dataType: int64
+		formatString: 0
+		lineageTag: dfa37984-072f-48fb-a243-1a96653a6803
+		sourceLineageTag: nb_sessions
+		summarizeBy: none
+		sourceColumn: nb_sessions
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_source
+		dataType: string
+		lineageTag: de7cf1fe-2d6c-4fdf-9fdc-971af89d429e
+		sourceLineageTag: event_source
+		summarizeBy: none
+		sourceColumn: event_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_simulated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f7d6692a-1a3f-43a0-a298-031e708c985b
+		sourceLineageTag: is_simulated
+		summarizeBy: none
+		sourceColumn: is_simulated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition city_difficulty_history = entity
+		mode: directLake
+		source
+			entityName: city_difficulty_history
+			schemaName: dbo
+			expressionSource: 'DirectLake - wh_gold'
+

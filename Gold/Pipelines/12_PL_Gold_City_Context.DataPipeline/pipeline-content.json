@@ -430,47 +430,11 @@
         ]
       },
       {
-        "type": "Office365Email",
-        "typeProperties": {
-          "body": "<p>Dear Julien,</p>\n<p>For your information, pipeline @{pipeline().PipelineName} ID @{pipeline().Pipeline} did not run correctly.</p>\n<p>Please have a look and fix this ASAP.<br>\n</p>\n<p>Best regards,</p>\n<p>Fabric</p>",
-          "to": "julien.dumont.be@gmail.com",
-          "subject": {
-            "value": "@concat(pipeline().PipelineName,' error message')\n",
-            "type": "Expression"
-          }
-        },
-        "externalReferences": {
-          "connection": "ae912a4b-7a13-486a-90c5-ed3db44aad26"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Pipeline_fail_notification",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
-        "dependsOn": [
-          {
-            "activity": "Build_city_game_context",
-            "dependencyConditions": [
-              "Failed",
-              "Skipped"
-            ]
-          }
-        ]
-      },
-      {
         "type": "InvokePipeline",
         "typeProperties": {
           "parameters": {
             "Action": "START",
-            "PipelineName": {
-              "value": "@{pipeline().Pipeline}",
-              "type": "Expression"
-            },
+            "PipelineName": "@pipeline().PipelineName",
             "TableName": "city_game_context",
             "LayerName": "Gold",
             "ErrorMessage": "null"
@@ -499,7 +463,7 @@
           "parameters": {
             "Action": "SUCCESS",
             "PipelineName": {
-              "value": "@{pipeline().Pipeline}",
+              "value": "@pipeline().PipelineName",
               "type": "Expression"
             },
             "TableName": "city_game_context",
@@ -537,7 +501,7 @@
           "parameters": {
             "Action": "FAILED",
             "PipelineName": {
-              "value": "@{pipeline().Pipeline}",
+              "value": "@pipeline().PipelineName",
               "type": "Expression"
             },
             "TableName": "city_game_context",

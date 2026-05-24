@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "DataPipeline",
-    "displayName": "15_PL_Game_Export"
+    "displayName": "18_PL_Ops_Daily_Game_Feedback_Refresh"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "9accd57d-a692-b38e-48cb-555137a6d7ca"
+    "logicalId": "ddc1383e-b562-ab5e-4bc4-5871ba299278"
   }
 }

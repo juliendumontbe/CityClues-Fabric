@@ -1,0 +1,202 @@
+table dim_city_gold
+	lineageTag: 1c76a43e-f0f0-4fa9-ab26-292fcae20d31
+	sourceLineageTag: [dbo].[dim_city_gold]
+
+	column city_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 16386b98-6bbd-4915-9ef6-682672dbd6b5
+		sourceLineageTag: city_id
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_name
+		dataType: string
+		lineageTag: 5c95d024-749f-47c9-8a87-06cfeda14e38
+		sourceLineageTag: city_name
+		summarizeBy: none
+		sourceColumn: city_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_code
+		dataType: string
+		lineageTag: e2d5602e-e3de-4390-ab36-dd5245e90a1d
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: 31db6270-716e-42d2-b8cd-3da7002b1b00
+		sourceLineageTag: latitude
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 949eabb4-1fe4-4393-8474-49cfacc661e7
+		sourceLineageTag: longitude
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column city_pop
+		dataType: int64
+		formatString: 0
+		lineageTag: e338d598-75c3-4f4c-b8d2-4b3941155c1b
+		sourceLineageTag: city_pop
+		summarizeBy: sum
+		sourceColumn: city_pop
+
+		annotation SummarizationSetBy = Automatic
+
+	column altitude_category
+		dataType: string
+		lineageTag: 964f5566-072b-4232-bbab-a58195ec3667
+		sourceLineageTag: altitude_category
+		summarizeBy: none
+		sourceColumn: altitude_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column timezone
+		dataType: string
+		lineageTag: f8ea416b-708f-4833-9d5c-af1740b81877
+		sourceLineageTag: timezone
+		summarizeBy: none
+		sourceColumn: timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_capital
+		dataType: int64
+		formatString: 0
+		lineageTag: 4709bf2d-e4a6-45c8-a557-dcd60506e324
+		sourceLineageTag: is_capital
+		summarizeBy: sum
+		sourceColumn: is_capital
+
+		annotation SummarizationSetBy = Automatic
+
+	column hemisphere
+		dataType: string
+		lineageTag: defcb422-8254-47ad-959c-22d059003dc3
+		sourceLineageTag: hemisphere
+		summarizeBy: none
+		sourceColumn: hemisphere
+
+		annotation SummarizationSetBy = Automatic
+
+	column longitudinal_zone
+		dataType: string
+		lineageTag: dc1c835f-8a64-4750-b0e0-1f52686442e7
+		sourceLineageTag: longitudinal_zone
+		summarizeBy: none
+		sourceColumn: longitudinal_zone
+
+		annotation SummarizationSetBy = Automatic
+
+	column global_quadrant
+		dataType: string
+		lineageTag: 87cfbcd4-8e3e-4ea7-bdda-79dfcb1586cb
+		sourceLineageTag: global_quadrant
+		summarizeBy: none
+		sourceColumn: global_quadrant
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_category
+		dataType: string
+		lineageTag: 26873e6c-dc3b-4ff1-aa26-c56b495f50c8
+		sourceLineageTag: city_category
+		summarizeBy: none
+		sourceColumn: city_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_first_letter
+		dataType: string
+		lineageTag: dbb64db8-00f1-4e8f-9f68-7fea7117aa9f
+		sourceLineageTag: city_first_letter
+		summarizeBy: none
+		sourceColumn: city_first_letter
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_last_letter
+		dataType: string
+		lineageTag: 6571def5-3bb7-433e-a285-d3932cf07f1e
+		sourceLineageTag: city_last_letter
+		summarizeBy: none
+		sourceColumn: city_last_letter
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_name_length_category
+		dataType: string
+		lineageTag: 16813182-38ce-4ee7-8a32-5cff4ab04f1d
+		sourceLineageTag: city_name_length_category
+		summarizeBy: none
+		sourceColumn: city_name_length_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_word_count_category
+		dataType: string
+		lineageTag: 80023ed1-db7c-4144-b8a2-01df5fac6369
+		sourceLineageTag: city_word_count_category
+		summarizeBy: none
+		sourceColumn: city_word_count_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column coastal_distance
+		dataType: double
+		lineageTag: 746f7225-8814-41f0-9274-74dddaf082a3
+		sourceLineageTag: coastal_distance
+		summarizeBy: sum
+		sourceColumn: coastal_distance
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column coastal_distance_category
+		dataType: string
+		lineageTag: 6d73f9c1-b9a5-4673-8b7c-0f9031836485
+		sourceLineageTag: coastal_distance_category
+		summarizeBy: none
+		sourceColumn: coastal_distance_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_score
+		dataType: double
+		lineageTag: 71a26607-b20d-46a0-8b6e-1bce051562ea
+		sourceLineageTag: city_score
+		summarizeBy: sum
+		sourceColumn: city_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_city_gold = entity
+		mode: directLake
+		source
+			entityName: dim_city_gold
+			schemaName: dbo
+			expressionSource: 'DirectLake - wh_gold'
+

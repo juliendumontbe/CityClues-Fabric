@@ -1,0 +1,150 @@
+table dim_country_gold
+	lineageTag: e91f8c0b-aeb3-4352-9f8d-01f16774398d
+	sourceLineageTag: [dbo].[dim_country_gold]
+
+	column country_code
+		dataType: string
+		lineageTag: 41c36eb1-9271-4026-b36c-445230ee3b0c
+		sourceLineageTag: country_code
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_id
+		dataType: string
+		lineageTag: d3e118bb-0b07-49c8-91d7-bd0fd7d18df3
+		sourceLineageTag: country_id
+		summarizeBy: none
+		sourceColumn: country_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_name
+		dataType: string
+		lineageTag: f3142d2d-48a3-4068-934c-fe914b9ff522
+		sourceLineageTag: country_name
+		summarizeBy: none
+		sourceColumn: country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column capital
+		dataType: string
+		lineageTag: 1db094d5-3ada-47bb-8d10-adf4adb3b045
+		sourceLineageTag: capital
+		summarizeBy: none
+		sourceColumn: capital
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_area
+		dataType: int64
+		formatString: 0
+		lineageTag: e81b5a68-0a16-4871-86bf-fe939e23aea7
+		sourceLineageTag: country_area
+		summarizeBy: none
+		sourceColumn: country_area
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_pop
+		dataType: int64
+		formatString: 0
+		lineageTag: fb352eff-bf3e-4fbf-af21-b5b6f5896386
+		sourceLineageTag: country_pop
+		summarizeBy: none
+		sourceColumn: country_pop
+
+		annotation SummarizationSetBy = Automatic
+
+	column continent
+		dataType: string
+		lineageTag: 35c47cfb-be41-4603-bc1d-76369f5f1395
+		sourceLineageTag: continent
+		summarizeBy: none
+		sourceColumn: continent
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_code
+		dataType: string
+		lineageTag: f387cca0-db00-46d4-a3b9-2dee1b85e538
+		sourceLineageTag: currency_code
+		summarizeBy: none
+		sourceColumn: currency_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column currency_name
+		dataType: string
+		lineageTag: a1740d5a-4a1b-45ed-a8f1-eb35299e9673
+		sourceLineageTag: currency_name
+		summarizeBy: none
+		sourceColumn: currency_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column languages
+		dataType: string
+		lineageTag: e18c92cf-96b2-4d86-b0d9-b7f050612794
+		sourceLineageTag: languages
+		summarizeBy: none
+		sourceColumn: languages
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbours
+		dataType: string
+		lineageTag: fe8f08ba-2318-46e6-b022-ddcb352b9cf8
+		sourceLineageTag: neighbours
+		summarizeBy: none
+		sourceColumn: neighbours
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_density_category
+		dataType: string
+		lineageTag: b1b6e88d-73fd-4ef3-a4ba-0e0acd20a0c8
+		sourceLineageTag: country_density_category
+		summarizeBy: none
+		sourceColumn: country_density_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column languages_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ae684a9-2932-45a7-894f-a00893bf896d
+		sourceLineageTag: languages_count
+		summarizeBy: none
+		sourceColumn: languages_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column neighbours_count
+		dataType: int64
+		formatString: 0
+		lineageTag: e5dda3b7-5a2e-4b53-8847-8344c74c76a8
+		sourceLineageTag: neighbours_count
+		summarizeBy: none
+		sourceColumn: neighbours_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_category
+		dataType: string
+		lineageTag: 51f62819-3cd8-4dfc-b251-63f7d9fbb066
+		sourceLineageTag: country_category
+		summarizeBy: none
+		sourceColumn: country_category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_country_gold = entity
+		mode: directLake
+		source
+			entityName: dim_country_gold
+			schemaName: dbo
+			expressionSource: 'DirectLake - wh_gold'
+

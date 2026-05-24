@@ -2,43 +2,14 @@
   "properties": {
     "activities": [
       {
-        "type": "RefreshDataflow",
-        "typeProperties": {
-          "dataflowId": "3f4fe722-fddd-8a30-44ed-a852e7c3833a",
-          "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "notifyOption": "NoNotification",
-          "dataflowType": "DataflowFabric"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Build_fact_game_session",
-        "dependsOn": [
-          {
-            "activity": "Log_Start",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
         "type": "InvokePipeline",
         "typeProperties": {
           "parameters": {
-            "Action": "START",
-            "PipelineName": "@pipeline().PipelineName",
-            "TableName": "fact_game_session",
-            "LayerName": "Gold",
-            "ErrorMessage": "null"
+            "p_city_id": "3165524"
           },
           "waitOnCompletion": true,
           "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "pipelineId": "810f191a-6626-b18a-429b-00f9ed376902",
           "operationType": "InvokeFabricPipeline"
         },
         "externalReferences": {
@@ -51,22 +22,16 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Log_Start",
+        "name": "13 Add city override",
         "dependsOn": []
       },
       {
         "type": "InvokePipeline",
         "typeProperties": {
-          "parameters": {
-            "Action": "SUCCESS",
-            "PipelineName": "@pipeline().PipelineName",
-            "TableName": "fact_game_session",
-            "LayerName": "Gold",
-            "ErrorMessage": "null"
-          },
+          "parameters": {},
           "waitOnCompletion": true,
-          "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945",
+          "pipelineId": "b44d6aaa-2085-4934-bcf6-0f941aa52581",
           "operationType": "InvokeFabricPipeline"
         },
         "externalReferences": {
@@ -79,10 +44,10 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Log_Success",
+        "name": "3 City selection",
         "dependsOn": [
           {
-            "activity": "Build_fact_game_session",
+            "activity": "13 Add city override",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -92,16 +57,10 @@
       {
         "type": "InvokePipeline",
         "typeProperties": {
-          "parameters": {
-            "Action": "FAILED",
-            "PipelineName": "@pipeline().PipelineName",
-            "TableName": "fact_game_session",
-            "LayerName": "Gold",
-            "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
-          },
+          "parameters": {},
           "waitOnCompletion": true,
           "workspaceId": "00000000-0000-0000-0000-000000000000",
-          "pipelineId": "77aaa198-8ffb-ae4d-4538-24b90906a3be",
+          "pipelineId": "78f8875b-9ef7-810d-42ee-f58a1ba99a12",
           "operationType": "InvokeFabricPipeline"
         },
         "externalReferences": {
@@ -114,10 +73,40 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Log_Fail",
+        "name": "16 Weather context update",
         "dependsOn": [
           {
-            "activity": "Build_fact_game_session",
+            "activity": "3 City selection",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "Office365Email",
+        "typeProperties": {
+          "body": "<p>Dear Julien,</p>\n<p>For your information, pipeline @{pipeline().PipelineName} ID @{pipeline().Pipeline} did not run correctly.</p>\n<p>Please have a look and fix this ASAP.<br>\n</p>\n<p>Best regards,</p>\n<p>Fabric</p>",
+          "to": "julien.dumont.be@gmail.com",
+          "subject": {
+            "value": "@concat(pipeline().PipelineName,' error message')\n",
+            "type": "Expression"
+          }
+        },
+        "externalReferences": {
+          "connection": "ae912a4b-7a13-486a-90c5-ed3db44aad26"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Pipeline_fail_notification",
+        "dependsOn": [
+          {
+            "activity": "16 Weather context update",
             "dependencyConditions": [
               "Failed"
             ]

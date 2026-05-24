@@ -1,0 +1,20 @@
+relationship d33df265-4e0d-d0e7-b1e4-ed115a97506d
+	fromColumn: dim_city_gold.country_code
+	toColumn: dim_country_gold.country_code
+
+relationship de66f4d4-3d19-05a0-cdf9-53d59fb5a9a7
+	fromColumn: dim_city_gold.city_id
+	toColumn: weather_city_current_gold.city_id
+
+relationship 89209981-629b-8588-55fd-306f49ad729c
+	fromColumn: dim_city_gold.city_id
+	toColumn: city_difficulty.city_id
+
+relationship 8e6416ff-5d41-e278-8fb7-d7c4b228c379
+	fromColumn: dim_city_gold.city_id
+	toColumn: city_difficulty_history.city_id
+
+relationship cd15009f-f2e9-3278-d971-ea6412265b1d
+	fromColumn: dim_city_gold.city_id
+	toColumn: fact_game_session.city_id
+

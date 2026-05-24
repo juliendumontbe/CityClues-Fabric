@@ -98,7 +98,7 @@
         "typeProperties": {
           "parameters": {
             "Action": "START",
-            "PipelineName": "@{pipeline().Pipeline}",
+            "PipelineName": "@pipeline().PipelineName",
             "TableName": "city_difficulty",
             "LayerName": "Gold",
             "ErrorMessage": "null"
@@ -126,7 +126,7 @@
         "typeProperties": {
           "parameters": {
             "Action": "SUCCESS",
-            "PipelineName": "@{pipeline().Pipeline}",
+            "PipelineName": "@pipeline().PipelineName",
             "TableName": "city_difficulty",
             "LayerName": "Gold",
             "ErrorMessage": "null"
@@ -161,7 +161,10 @@
         "typeProperties": {
           "parameters": {
             "Action": "FAILED",
-            "PipelineName": "@{pipeline().Pipeline}",
+            "PipelineName": {
+              "value": "@{pipeline().Pipeline}",
+              "type": "Expression"
+            },
             "TableName": "city_difficulty",
             "LayerName": "Gold",
             "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."

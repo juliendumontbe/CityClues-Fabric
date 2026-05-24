@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
     "type": "DataPipeline",
-    "displayName": "19_PL_Log_Manager"
+    "displayName": "20_PL_Ops_Semantic_Model_Refresh"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "77aaa198-8ffb-ae4d-4538-24b90906a3be"
+    "logicalId": "94f1a407-75bb-aa92-45fc-b27849129728"
   }
 }

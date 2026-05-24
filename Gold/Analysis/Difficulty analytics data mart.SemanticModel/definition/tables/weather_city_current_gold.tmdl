@@ -1,0 +1,91 @@
+table weather_city_current_gold
+	lineageTag: 332c1ae8-8df5-40b1-ae58-412c66b8e554
+	sourceLineageTag: [dbo].[weather_city_current_gold]
+
+	column city_id
+		dataType: int64
+		formatString: 0
+		lineageTag: e7069ec7-50cd-43dc-9fd8-ba00e5fd0913
+		sourceLineageTag: city_id
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_api_city_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 16f4fa8c-9c69-4bf3-be62-da03cbff0f8a
+		sourceLineageTag: weather_api_city_id
+		summarizeBy: none
+		sourceColumn: weather_api_city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column humidity
+		dataType: int64
+		formatString: 0
+		lineageTag: 1385e0cb-5e03-42ad-9134-ad63643e5cc4
+		sourceLineageTag: humidity
+		summarizeBy: none
+		sourceColumn: humidity
+
+		annotation SummarizationSetBy = Automatic
+
+	column temperature
+		dataType: double
+		lineageTag: e5b39544-8df8-4342-80b0-e83c14b251ba
+		sourceLineageTag: temperature
+		summarizeBy: none
+		sourceColumn: temperature
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column weather_type
+		dataType: string
+		lineageTag: 7b8f7a60-3465-49c4-8834-4532183145c5
+		sourceLineageTag: weather_type
+		summarizeBy: none
+		sourceColumn: weather_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column timezone_offset_sec
+		dataType: int64
+		formatString: 0
+		lineageTag: c5622339-ae7a-48a9-acea-2bf6f09bc5b2
+		sourceLineageTag: timezone_offset_sec
+		summarizeBy: none
+		sourceColumn: timezone_offset_sec
+
+		annotation SummarizationSetBy = Automatic
+
+	column weather_timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7a5ed1e4-4671-4f58-aade-7912ef01c378
+		sourceLineageTag: weather_timestamp
+		summarizeBy: none
+		sourceColumn: weather_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column ingestion_timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: bb859c22-57e8-4278-b49e-4c5bdd360049
+		sourceLineageTag: ingestion_timestamp
+		summarizeBy: none
+		sourceColumn: ingestion_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	partition weather_city_current_gold = entity
+		mode: directLake
+		source
+			entityName: weather_city_current_gold
+			schemaName: dbo
+			expressionSource: 'DirectLake - wh_gold'
+

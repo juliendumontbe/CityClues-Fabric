@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "19_PL_Ops_New_City_Onboarding"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "3e0b2034-2b96-99d3-46af-6782017d7922"
+  }
+}

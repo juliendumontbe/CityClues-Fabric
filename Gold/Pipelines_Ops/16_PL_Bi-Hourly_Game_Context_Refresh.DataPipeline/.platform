@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "16_PL_Ops_Weather_Context_Update"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "78f8875b-9ef7-810d-42ee-f58a1ba99a12"
+  }
+}

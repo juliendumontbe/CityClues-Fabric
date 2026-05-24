@@ -1,0 +1,11 @@
+expression 'DirectLake - wh_gold' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/e0a788ba-e0d8-4649-9eb4-89f26d881a53/5f1f2aeb-8445-4b8a-9f7b-5d8106992b08", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: a4c7657e-9361-4f3c-b07a-57967db693a7
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[city_game_context]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[fact_hint_usage]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[hint_performance]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[dim_hint_gold]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[pipeline_run_log]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[cities_selection_gold]"}},"objectType":"Table"}]
+
