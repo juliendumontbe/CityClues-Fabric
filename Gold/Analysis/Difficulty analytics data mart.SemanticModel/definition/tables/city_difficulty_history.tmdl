@@ -37,7 +37,7 @@ table city_difficulty_history
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 72153e70-1672-48b3-8f20-b85f179379f4
 		sourceLineageTag: difficulty_initial
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: difficulty_initial
 
 		annotation SummarizationSetBy = Automatic
@@ -49,7 +49,7 @@ table city_difficulty_history
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 796402e4-5621-4da2-8153-ec2273103c03
 		sourceLineageTag: difficulty_real
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: difficulty_real
 
 		annotation SummarizationSetBy = Automatic
@@ -61,7 +61,7 @@ table city_difficulty_history
 		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
 		lineageTag: 1236fbac-58cc-4272-99fb-95b6406c5b9c
 		sourceLineageTag: difficulty_score
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: difficulty_score
 
 		annotation SummarizationSetBy = Automatic
@@ -73,7 +73,7 @@ table city_difficulty_history
 		formatString: 0
 		lineageTag: dfa37984-072f-48fb-a243-1a96653a6803
 		sourceLineageTag: nb_sessions
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: nb_sessions
 
 		annotation SummarizationSetBy = Automatic

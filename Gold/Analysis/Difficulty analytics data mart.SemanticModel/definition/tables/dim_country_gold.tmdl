@@ -43,7 +43,7 @@ table dim_country_gold
 		formatString: 0
 		lineageTag: e81b5a68-0a16-4871-86bf-fe939e23aea7
 		sourceLineageTag: country_area
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: country_area
 
 		annotation SummarizationSetBy = Automatic
@@ -53,7 +53,7 @@ table dim_country_gold
 		formatString: 0
 		lineageTag: fb352eff-bf3e-4fbf-af21-b5b6f5896386
 		sourceLineageTag: country_pop
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: country_pop
 
 		annotation SummarizationSetBy = Automatic
@@ -117,7 +117,7 @@ table dim_country_gold
 		formatString: 0
 		lineageTag: 8ae684a9-2932-45a7-894f-a00893bf896d
 		sourceLineageTag: languages_count
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: languages_count
 
 		annotation SummarizationSetBy = Automatic
@@ -127,7 +127,7 @@ table dim_country_gold
 		formatString: 0
 		lineageTag: e5dda3b7-5a2e-4b53-8847-8344c74c76a8
 		sourceLineageTag: neighbours_count
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: neighbours_count
 
 		annotation SummarizationSetBy = Automatic

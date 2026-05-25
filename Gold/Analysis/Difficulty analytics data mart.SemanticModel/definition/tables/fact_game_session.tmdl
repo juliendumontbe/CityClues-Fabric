@@ -35,7 +35,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: b11efcb4-9d7f-4a78-945b-ed40679e1234
 		sourceLineageTag: session_duration_sec
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: session_duration_sec
 
 		annotation SummarizationSetBy = Automatic
@@ -54,7 +54,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: 83e08237-5661-4cf9-8c34-ad6a4eb15943
 		sourceLineageTag: is_success
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: is_success
 
 		annotation SummarizationSetBy = Automatic
@@ -64,7 +64,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: b314e901-c88f-46e3-b447-c3b1eabdb8bc
 		sourceLineageTag: is_failed
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: is_failed
 
 		annotation SummarizationSetBy = Automatic
@@ -74,7 +74,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: 36aaa488-5b91-4aea-b920-f788b2154a4f
 		sourceLineageTag: is_abandoned
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: is_abandoned
 
 		annotation SummarizationSetBy = Automatic
@@ -84,7 +84,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: 7b80bcc6-2370-4ab7-bb73-ed1760a04bd2
 		sourceLineageTag: nb_hints_requested
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: nb_hints_requested
 
 		annotation SummarizationSetBy = Automatic
@@ -94,7 +94,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: 5c6404e8-c251-4a8a-9b1e-3a81a947d2cb
 		sourceLineageTag: nb_hints_shown
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: nb_hints_shown
 
 		annotation SummarizationSetBy = Automatic
@@ -104,7 +104,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: f0db3104-69cd-4078-a34b-3ae4bd7d2200
 		sourceLineageTag: nb_guesses
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: nb_guesses
 
 		annotation SummarizationSetBy = Automatic
@@ -113,7 +113,7 @@ table fact_game_session
 		dataType: double
 		lineageTag: 1a061af4-3a63-47de-a052-8640363a86ec
 		sourceLineageTag: avg_response_time_sec
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: avg_response_time_sec
 
 		annotation SummarizationSetBy = Automatic
@@ -125,7 +125,7 @@ table fact_game_session
 		formatString: 0
 		lineageTag: 8c3de472-efb0-480c-918a-4a979c4a87ef
 		sourceLineageTag: max_hint_stage_reached
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: max_hint_stage_reached
 
 		annotation SummarizationSetBy = Automatic

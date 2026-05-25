@@ -17,7 +17,7 @@ table city_difficulty
 		formatString: 0
 		lineageTag: 95735da6-553b-4d19-b0e4-047f45237eeb
 		sourceLineageTag: nb_sessions
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: nb_sessions
 
 		annotation SummarizationSetBy = Automatic
@@ -26,7 +26,7 @@ table city_difficulty
 		dataType: double
 		lineageTag: f570cbb8-f7c1-42c5-a9c3-c5a6472b5e3f
 		sourceLineageTag: difficulty_initial
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: difficulty_initial
 
 		annotation SummarizationSetBy = Automatic
@@ -37,7 +37,7 @@ table city_difficulty
 		dataType: double
 		lineageTag: 3294eefe-d0d7-4041-806c-60e02d59d1d9
 		sourceLineageTag: difficulty_real
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: difficulty_real
 
 		annotation SummarizationSetBy = Automatic
@@ -48,7 +48,7 @@ table city_difficulty
 		dataType: double
 		lineageTag: 8822ef1f-1ac2-4233-8528-7b4cebf9b38b
 		sourceLineageTag: difficulty_score
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: difficulty_score
 
 		annotation SummarizationSetBy = Automatic
@@ -79,7 +79,7 @@ table city_difficulty
 		formatString: 0
 		lineageTag: 9fa0e772-d386-40e4-93d3-644a38bc56f9
 		sourceLineageTag: difficulty_level
-		summarizeBy: none
+		summarizeBy: sum
 		sourceColumn: difficulty_level
 
 		annotation SummarizationSetBy = Automatic
