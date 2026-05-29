@@ -2,6 +2,66 @@ table fact_game_session
 	lineageTag: dbcb055e-dc48-49b0-9906-3f4231e1cd3f
 	sourceLineageTag: [dbo].[fact_game_session]
 
+	measure 'Success Rate %' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNT(fact_game_session[session_id]),
+			        fact_game_session[session_result] = "success"
+			    ),
+			    COUNT(fact_game_session[session_id])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a57ff4be-ec9f-4a3d-a5af-08e2e0899393
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Fail Rate %' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNT(fact_game_session[session_id]),
+			        fact_game_session[session_result] = "failed"
+			    ),
+			    COUNT(fact_game_session[session_id])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 53607b0c-81c1-4565-95e9-8da6fc78212b
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Abandon Rate %' =
+			
+			DIVIDE(
+			    CALCULATE(
+			        COUNT(fact_game_session[session_id]),
+			        fact_game_session[session_result] = "abandoned"
+			    ),
+			    COUNT(fact_game_session[session_id])
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: dbaf2fdf-cdb1-45d5-9eda-786763c2da3e
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Has Game Sessions' =
+			
+			IF(
+			    COUNT(fact_game_session[session_id]) > 0,
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: a49c0f61-2bf7-406d-a4d9-7f692b5a2c76
+
+		changedProperty = Name
+
 	column session_id
 		dataType: string
 		lineageTag: 912ba2f7-51d0-47f5-b8c0-80cf6bff7e6b
@@ -13,16 +73,20 @@ table fact_game_session
 
 	column city_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: f7245b0a-2037-4ee6-8dff-f62aa137474c
 		sourceLineageTag: city_id
 		summarizeBy: none
 		sourceColumn: city_id
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column session_date_key
-		dataType: string
+		dataType: int64
+		formatString: 0
 		lineageTag: 119807b2-6e96-4b43-b0e2-044790ab450c
 		sourceLineageTag: session_date_key
 		summarizeBy: none

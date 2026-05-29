@@ -80,9 +80,10 @@ shared #"Q_event_&_session_final" = let
   #"Changed column type" = Table.TransformColumnTypes(#"Reordered columns", {{"session_date_key", type text}, {"is_success", Int64.Type}, {"is_failed", Int64.Type}, {"is_abandoned", Int64.Type}}),
   #"Sorted rows" = Table.Sort(#"Changed column type", {{"session_id", Order.Ascending}}),
   #"Removed duplicates" = Table.Distinct(#"Sorted rows", {"session_id"}),
-  #"Reordered columns 1" = Table.ReorderColumns(#"Removed duplicates", {"session_id", "city_id", "session_date_key", "session_duration_sec", "session_result", "is_success", "is_failed", "is_abandoned", "nb_hints_requested", "nb_hints_shown", "nb_guesses", "avg_response_time_sec", "max_hint_stage_reached", "event_source", "is_simulated"})
+  #"Reordered columns 1" = Table.ReorderColumns(#"Removed duplicates", {"session_id", "city_id", "session_date_key", "session_duration_sec", "session_result", "is_success", "is_failed", "is_abandoned", "nb_hints_requested", "nb_hints_shown", "nb_guesses", "avg_response_time_sec", "max_hint_stage_reached", "event_source", "is_simulated"}),
+  #"Changed column type 1" = Table.TransformColumnTypes(#"Reordered columns 1", {{"session_date_key", Int64.Type}})
 in
-  #"Reordered columns 1";
+  #"Changed column type 1";
 shared #"Q_event_&_session_final_DataDestination" = let
   Pattern = Fabric.Warehouse([CreateNavigationProperties = false, HierarchicalNavigation = null]),
   Navigation_1 = Pattern{[workspaceId = "."]}[Data],

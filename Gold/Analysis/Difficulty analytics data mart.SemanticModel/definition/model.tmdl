@@ -18,4 +18,9 @@ ref table city_difficulty
 ref table weather_city_current_gold
 ref table dim_city_gold
 ref table dim_country_gold
+ref table dim_calendar
+ref table dim_data_origin
+ref table hint_performance
+ref table fact_hint_usage
+ref table dim_hint_gold
 

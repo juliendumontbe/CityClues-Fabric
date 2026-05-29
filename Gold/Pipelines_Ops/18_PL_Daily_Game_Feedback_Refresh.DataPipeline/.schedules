@@ -7,7 +7,7 @@
       "configuration": {
         "type": "Daily",
         "startDateTime": "2026-05-23T00:00:00",
-        "endDateTime": "2027-05-26T23:59:00",
+        "endDateTime": "2027-06-23T23:59:00",
         "localTimeZoneId": "Romance Standard Time",
         "times": [
           "23:00"

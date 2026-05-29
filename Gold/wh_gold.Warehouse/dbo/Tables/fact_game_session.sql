@@ -2,7 +2,7 @@ CREATE TABLE [dbo].[fact_game_session] (
 
 	[session_id] varchar(8000) NULL, 
 	[city_id] bigint NULL, 
-	[session_date_key] varchar(8000) NULL, 
+	[session_date_key] bigint NULL, 
 	[session_duration_sec] int NULL, 
 	[session_result] varchar(8000) NULL, 
 	[is_success] bigint NULL, 

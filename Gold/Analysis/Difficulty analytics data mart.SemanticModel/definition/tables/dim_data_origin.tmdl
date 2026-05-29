@@ -1,0 +1,36 @@
+table dim_data_origin
+	lineageTag: 8ed92cea-286c-4364-ac07-9289df2296d9
+
+	column is_simulated
+		isHidden
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 9904261c-f945-4e4a-958d-87e43422b73b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [is_simulated]
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_origin
+		lineageTag: 29c36473-50fd-44d9-beea-5c057d790a06
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [data_origin]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_data_origin = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "is_simulated", BOOLEAN,
+				    "data_origin", STRING,
+				    {
+				        {0, "Real game data"},
+				        {1, "Simulated data"}
+				    }
+				)
+
+	annotation PBI_Id = 17d7b1048f654364ad83e2478c997c49
+

@@ -1,0 +1,127 @@
+table dim_hint_gold
+	lineageTag: 2f756ccf-04cb-4e4f-baed-021f59997052
+	sourceLineageTag: [dbo].[dim_hint_gold]
+
+	column hint_id
+		dataType: int64
+		formatString: 0
+		lineageTag: a9c1c4fc-cf25-48c1-a73b-b7e8d69f19fc
+		sourceLineageTag: hint_id
+		summarizeBy: none
+		sourceColumn: hint_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_stage
+		dataType: string
+		lineageTag: e6bd6458-9755-4940-a544-1b91f22b68f6
+		sourceLineageTag: hint_stage
+		summarizeBy: none
+		sourceColumn: hint_stage
+
+		changedProperty = FormatString
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_priority
+		dataType: int64
+		formatString: 0
+		lineageTag: 7d8dcec0-e2d8-4e41-942e-6e863e7c5b36
+		sourceLineageTag: hint_priority
+		summarizeBy: sum
+		sourceColumn: hint_priority
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_type
+		dataType: string
+		lineageTag: 63d362c5-2baf-4649-8533-7412efbe963c
+		sourceLineageTag: hint_type
+		summarizeBy: none
+		sourceColumn: hint_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_label
+		dataType: string
+		lineageTag: 8fa1d4bb-cba9-4a09-87a6-246ec3812dce
+		sourceLineageTag: hint_label
+		summarizeBy: none
+		sourceColumn: hint_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_description
+		dataType: string
+		lineageTag: 62538f06-270f-4935-a6f1-b3709b87bd86
+		sourceLineageTag: hint_description
+		summarizeBy: none
+		sourceColumn: hint_description
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_template
+		dataType: string
+		lineageTag: 03ffdf06-36cd-4dfc-a16c-26ed06baf102
+		sourceLineageTag: hint_template
+		summarizeBy: none
+		sourceColumn: hint_template
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_category
+		dataType: string
+		lineageTag: dbe67d15-8f37-49ab-a6b0-43e3c2c8a879
+		sourceLineageTag: hint_category
+		summarizeBy: none
+		sourceColumn: hint_category
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_dynamic
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 2cfdee60-2e24-44d1-a530-6bdb61e7c418
+		sourceLineageTag: is_dynamic
+		summarizeBy: none
+		sourceColumn: is_dynamic
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_active
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: cd8ce20f-8d49-4997-8729-af15be50a308
+		sourceLineageTag: is_active
+		summarizeBy: none
+		sourceColumn: is_active
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_table
+		dataType: string
+		lineageTag: c37f9e79-4e15-4b9e-9943-c40826dc646e
+		sourceLineageTag: source_table
+		summarizeBy: none
+		sourceColumn: source_table
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_field
+		dataType: string
+		lineageTag: c709dd85-deb7-45da-b2fc-b57ebfb94467
+		sourceLineageTag: source_field
+		summarizeBy: none
+		sourceColumn: source_field
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_hint_gold = entity
+		mode: directLake
+		source
+			entityName: dim_hint_gold
+			schemaName: dbo
+			expressionSource: 'DirectLake - wh_gold'
+

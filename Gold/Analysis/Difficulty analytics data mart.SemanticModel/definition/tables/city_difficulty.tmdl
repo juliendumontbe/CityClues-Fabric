@@ -4,11 +4,14 @@ table city_difficulty
 
 	column city_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 367b6232-b32c-4b53-ba09-c7db4f7a490c
 		sourceLineageTag: city_id
 		summarizeBy: none
 		sourceColumn: city_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -66,11 +69,14 @@ table city_difficulty
 
 	column is_simulated
 		dataType: boolean
+		isHidden
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: 7948b175-9a9d-4e36-b905-6b349b7b1061
 		sourceLineageTag: is_simulated
 		summarizeBy: none
 		sourceColumn: is_simulated
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

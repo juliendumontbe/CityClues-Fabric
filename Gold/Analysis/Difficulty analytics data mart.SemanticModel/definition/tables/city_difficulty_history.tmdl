@@ -4,11 +4,14 @@ table city_difficulty_history
 
 	column city_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: 5039a7e1-5d65-4957-a41c-7024feb0fb0f
 		sourceLineageTag: city_id
 		summarizeBy: none
 		sourceColumn: city_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -34,47 +37,50 @@ table city_difficulty_history
 
 	column difficulty_initial
 		dataType: decimal
-		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		formatString: #,0.00
 		lineageTag: 72153e70-1672-48b3-8f20-b85f179379f4
 		sourceLineageTag: difficulty_initial
 		summarizeBy: sum
 		sourceColumn: difficulty_initial
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = FormatString
 
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+		annotation SummarizationSetBy = Automatic
 
 	column difficulty_real
 		dataType: decimal
-		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		formatString: #,0.00
 		lineageTag: 796402e4-5621-4da2-8153-ec2273103c03
 		sourceLineageTag: difficulty_real
 		summarizeBy: sum
 		sourceColumn: difficulty_real
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = FormatString
 
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+		annotation SummarizationSetBy = Automatic
 
 	column difficulty_score
 		dataType: decimal
-		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		formatString: #,0.00
 		lineageTag: 1236fbac-58cc-4272-99fb-95b6406c5b9c
 		sourceLineageTag: difficulty_score
 		summarizeBy: sum
 		sourceColumn: difficulty_score
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = FormatString
 
-		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+		annotation SummarizationSetBy = Automatic
 
 	column nb_sessions
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: dfa37984-072f-48fb-a243-1a96653a6803
 		sourceLineageTag: nb_sessions
 		summarizeBy: sum
 		sourceColumn: nb_sessions
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -89,11 +95,24 @@ table city_difficulty_history
 
 	column is_simulated
 		dataType: boolean
+		isHidden
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: f7d6692a-1a3f-43a0-a298-031e708c985b
 		sourceLineageTag: is_simulated
 		summarizeBy: none
 		sourceColumn: is_simulated
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column calculation_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: a4847c17-6a46-44ef-9389-d004f054542a
+		sourceLineageTag: calculation_date_key
+		summarizeBy: none
+		sourceColumn: calculation_date_key
 
 		annotation SummarizationSetBy = Automatic
 

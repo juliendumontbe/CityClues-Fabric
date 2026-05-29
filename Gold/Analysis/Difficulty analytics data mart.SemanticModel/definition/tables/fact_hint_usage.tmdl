@@ -1,0 +1,122 @@
+table fact_hint_usage
+	lineageTag: bbdf6f76-d156-4810-95f1-6dd9dbadc573
+	sourceLineageTag: [dbo].[fact_hint_usage]
+
+	column session_id
+		dataType: string
+		lineageTag: 7df240c9-0189-4e1d-8435-7e4dfcb1273e
+		sourceLineageTag: session_id
+		summarizeBy: none
+		sourceColumn: session_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column city_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 347a9433-4e36-42d5-86b7-c8106bac3f2a
+		sourceLineageTag: city_id
+		summarizeBy: none
+		sourceColumn: city_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ca7fb4e-fb10-4b8a-8435-03ac82772c14
+		sourceLineageTag: hint_id
+		summarizeBy: none
+		sourceColumn: hint_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column hint_stage
+		dataType: string
+		lineageTag: dcd4d339-86aa-4587-ba97-cb206d8d0e4b
+		sourceLineageTag: hint_stage
+		summarizeBy: none
+		sourceColumn: hint_stage
+
+		changedProperty = FormatString
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column guesses_before_hint
+		dataType: int64
+		formatString: 0
+		lineageTag: ccdd3764-af51-4dbc-86f9-667a94fe86f9
+		sourceLineageTag: guesses_before_hint
+		summarizeBy: sum
+		sourceColumn: guesses_before_hint
+
+		annotation SummarizationSetBy = Automatic
+
+	column guesses_after_hint
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f25172e-e3c5-4ca4-aa4a-15631ce84bb1
+		sourceLineageTag: guesses_after_hint
+		summarizeBy: sum
+		sourceColumn: guesses_after_hint
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_last_hint_before_success
+		dataType: int64
+		formatString: 0
+		lineageTag: 423a9e28-e8f2-4a60-97d5-8e36fcefbc2f
+		sourceLineageTag: is_last_hint_before_success
+		summarizeBy: sum
+		sourceColumn: is_last_hint_before_success
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_session_success
+		dataType: int64
+		formatString: 0
+		lineageTag: e44d1650-aa71-460f-83ca-b2b133f7efd1
+		sourceLineageTag: is_session_success
+		summarizeBy: sum
+		sourceColumn: is_session_success
+
+		annotation SummarizationSetBy = Automatic
+
+	column session_date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 265103bd-7ac0-407f-90a1-59233f81654b
+		sourceLineageTag: session_date_key
+		summarizeBy: none
+		sourceColumn: session_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column event_source
+		dataType: string
+		lineageTag: 07543315-1f86-4dcd-8eca-880746d7b5d8
+		sourceLineageTag: event_source
+		summarizeBy: none
+		sourceColumn: event_source
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_simulated
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 27b772dd-feb0-41d1-b31c-9a94bf3bd985
+		sourceLineageTag: is_simulated
+		summarizeBy: none
+		sourceColumn: is_simulated
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_hint_usage = entity
+		mode: directLake
+		source
+			entityName: fact_hint_usage
+			schemaName: dbo
+			expressionSource: 'DirectLake - wh_gold'
+

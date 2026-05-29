@@ -53,7 +53,7 @@
           "scripts": [
             {
               "text": {
-                "value": "INSERT INTO dbo.city_difficulty_history (\n    city_id,\n    calculation_ts,\n    calculation_date,\n    difficulty_initial,\n    difficulty_real,\n    difficulty_score,\n    nb_sessions,\n    event_source,\n    is_simulated\n)\nSELECT\n    cd.city_id,\n    CAST(SYSDATETIME() AS DATETIME2(6)) AS calculation_ts,\n    CAST(SYSDATETIME() AS DATE) AS calculation_date,\n    cd.difficulty_initial,\n    cd.difficulty_real,\n    cd.difficulty_score,\n    cd.nb_sessions,\n    cd.event_source,\n    cd.is_simulated\nFROM (\n    SELECT DISTINCT\n        city_id,\n        difficulty_initial,\n        difficulty_real,\n        difficulty_score,\n        nb_sessions,\n        event_source,\n        is_simulated\n    FROM dbo.city_difficulty\n) cd\nWHERE NOT EXISTS (\n    SELECT 1\n    FROM dbo.city_difficulty_history h\n    WHERE h.city_id = cd.city_id\n      AND h.calculation_date = CAST(SYSDATETIME() AS DATE)\n      AND h.event_source = cd.event_source\n      AND h.is_simulated = cd.is_simulated\n);",
+                "value": "INSERT INTO dbo.city_difficulty_history (\n    city_id,\n    calculation_ts,\n    calculation_date,\n    calculation_date_key,\n    difficulty_initial,\n    difficulty_real,\n    difficulty_score,\n    nb_sessions,\n    event_source,\n    is_simulated\n)\nSELECT\n    cd.city_id,\n    CAST(SYSDATETIME() AS DATETIME2(6)) AS calculation_ts,\n    CAST(SYSDATETIME() AS DATE) AS calculation_date,\n    CAST(CONVERT(CHAR(8), CAST(SYSDATETIME() AS DATE), 112) AS INT) AS calculation_date_key,\n    cd.difficulty_initial,\n    cd.difficulty_real,\n    cd.difficulty_score,\n    cd.nb_sessions,\n    cd.event_source,\n    cd.is_simulated\nFROM (\n    SELECT DISTINCT\n        city_id,\n        difficulty_initial,\n        difficulty_real,\n        difficulty_score,\n        nb_sessions,\n        event_source,\n        is_simulated\n    FROM dbo.city_difficulty\n) cd\nWHERE NOT EXISTS (\n    SELECT 1\n    FROM dbo.city_difficulty_history h\n    WHERE h.city_id = cd.city_id\n      AND h.calculation_date = CAST(SYSDATETIME() AS DATE)\n      AND h.event_source = cd.event_source\n      AND h.is_simulated = cd.is_simulated\n);",
                 "type": "Expression"
               },
               "type": "Query"
@@ -98,7 +98,10 @@
         "typeProperties": {
           "parameters": {
             "Action": "START",
-            "PipelineName": "@pipeline().PipelineName",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
             "TableName": "city_difficulty",
             "LayerName": "Gold",
             "ErrorMessage": "null"
@@ -126,7 +129,10 @@
         "typeProperties": {
           "parameters": {
             "Action": "SUCCESS",
-            "PipelineName": "@pipeline().PipelineName",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
             "TableName": "city_difficulty",
             "LayerName": "Gold",
             "ErrorMessage": "null"

@@ -4,11 +4,14 @@ table weather_city_current_gold
 
 	column city_id
 		dataType: int64
+		isHidden
 		formatString: 0
 		lineageTag: e7069ec7-50cd-43dc-9fd8-ba00e5fd0913
 		sourceLineageTag: city_id
 		summarizeBy: none
 		sourceColumn: city_id
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

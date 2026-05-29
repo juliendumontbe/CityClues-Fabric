@@ -8,5 +8,6 @@ CREATE TABLE [dbo].[city_difficulty_history] (
 	[difficulty_score] decimal(10,4) NULL, 
 	[nb_sessions] int NULL, 
 	[event_source] varchar(50) NULL, 
-	[is_simulated] bit NULL
+	[is_simulated] bit NULL, 
+	[calculation_date_key] int NULL
 );
