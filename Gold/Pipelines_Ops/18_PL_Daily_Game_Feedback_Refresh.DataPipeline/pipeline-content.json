@@ -21,6 +21,8 @@
           "secureOutput": false
         },
         "name": "17 Firebase gameplay extract",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": []
       },
       {

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Analytics data mart"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "dba29c77-e00b-bd4e-48a6-165f77b4dc3e"
+  }
+}
