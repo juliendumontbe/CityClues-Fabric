@@ -41,7 +41,14 @@
           "secureOutput": false
         },
         "name": "Lookup_Selected_Cities",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "ForEach",
@@ -134,6 +141,104 @@
             "activity": "Lookup_Selected_Cities",
             "dependencyConditions": [
               "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "START",
+            "PipelineName": "@pipeline().PipelineName",
+            "TableName": "weather_ingest",
+            "LayerName": "Bronze",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Start",
+        "dependsOn": []
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "SUCCESS",
+            "PipelineName": "@pipeline().PipelineName",
+            "TableName": "weather_ingest",
+            "LayerName": "Bronze",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Success",
+        "dependsOn": [
+          {
+            "activity": "ForEachCity",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "FAILED",
+            "PipelineName": "@pipeline().PipelineName",
+            "TableName": "weather_ingest",
+            "LayerName": "Bronze",
+            "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Fail",
+        "dependsOn": [
+          {
+            "activity": "ForEachCity",
+            "dependencyConditions": [
+              "Failed"
             ]
           }
         ]

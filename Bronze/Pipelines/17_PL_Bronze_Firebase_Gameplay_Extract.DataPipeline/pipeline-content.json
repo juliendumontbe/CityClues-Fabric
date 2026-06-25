@@ -2,84 +2,6 @@
   "properties": {
     "activities": [
       {
-        "type": "InvokeCopyJob",
-        "typeProperties": {
-          "copyJobId": "65a63b15-3c10-9527-4d40-a0bc9f4582a2",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
-        "externalReferences": {
-          "connection": "6428afc6-380b-4a6d-9263-3bff6d22e791"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "CJ_Bronze_Cities_Ingest",
-        "dependsOn": [
-          {
-            "activity": "Log_Start",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
-        "type": "InvokeCopyJob",
-        "typeProperties": {
-          "copyJobId": "19805aa3-8bfb-9108-4aca-8a00b548c55d",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
-        "externalReferences": {
-          "connection": "6428afc6-380b-4a6d-9263-3bff6d22e791"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "CJ_Bronze_CoastDistance_Ingest",
-        "dependsOn": [
-          {
-            "activity": "Log_Start",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
-        "type": "InvokeCopyJob",
-        "typeProperties": {
-          "copyJobId": "ecb82b61-9c24-bca3-4b1a-60b0e1851121",
-          "workspaceId": "00000000-0000-0000-0000-000000000000"
-        },
-        "externalReferences": {
-          "connection": "6428afc6-380b-4a6d-9263-3bff6d22e791"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "CJ_Bronze_Countries_Ingest",
-        "dependsOn": [
-          {
-            "activity": "Log_Start",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          }
-        ]
-      },
-      {
         "type": "InvokePipeline",
         "typeProperties": {
           "parameters": {
@@ -88,7 +10,7 @@
               "value": "@pipeline().PipelineName",
               "type": "Expression"
             },
-            "TableName": "cities_ingest",
+            "TableName": "firebase_game_event_landing",
             "LayerName": "Bronze",
             "ErrorMessage": "null"
           },
@@ -119,7 +41,7 @@
               "value": "@pipeline().PipelineName",
               "type": "Expression"
             },
-            "TableName": "cities_ingest",
+            "TableName": "firebase_game_event_landing",
             "LayerName": "Bronze",
             "ErrorMessage": "null"
           },
@@ -141,19 +63,7 @@
         "name": "Log_Success",
         "dependsOn": [
           {
-            "activity": "CJ_Bronze_Cities_Ingest",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "CJ_Bronze_CoastDistance_Ingest",
-            "dependencyConditions": [
-              "Succeeded"
-            ]
-          },
-          {
-            "activity": "CJ_Bronze_Countries_Ingest",
+            "activity": "Notebook1",
             "dependencyConditions": [
               "Succeeded"
             ]
@@ -169,7 +79,7 @@
               "value": "@pipeline().PipelineName",
               "type": "Expression"
             },
-            "TableName": "cities_ingest",
+            "TableName": "firebase_game_event_landing",
             "LayerName": "Bronze",
             "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
           },
@@ -191,21 +101,35 @@
         "name": "Log_Fail",
         "dependsOn": [
           {
-            "activity": "CJ_Bronze_Cities_Ingest",
+            "activity": "Notebook1",
             "dependencyConditions": [
               "Failed"
             ]
-          },
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "34ccbad5-5f93-b310-4f45-da4b6ad406a9",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "externalReferences": {
+          "connection": "e7e8525c-8120-4e5a-ba31-7db1da311018"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Notebook1",
+        "dependsOn": [
           {
-            "activity": "CJ_Bronze_CoastDistance_Ingest",
+            "activity": "Log_Start",
             "dependencyConditions": [
-              "Failed"
-            ]
-          },
-          {
-            "activity": "CJ_Bronze_Countries_Ingest",
-            "dependencyConditions": [
-              "Failed"
+              "Succeeded"
             ]
           }
         ]

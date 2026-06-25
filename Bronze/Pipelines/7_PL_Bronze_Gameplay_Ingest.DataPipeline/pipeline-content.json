@@ -276,7 +276,14 @@
           "secureOutput": false
         },
         "name": "Create_Game_event_canonical_schema",
-        "dependsOn": []
+        "dependsOn": [
+          {
+            "activity": "Log_Start",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
       },
       {
         "type": "Copy",
@@ -305,8 +312,8 @@
                 "properties": {
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "artifactId": "ec6cb84e-c0f8-8301-41a0-93e7dc3ad09d",
-                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "artifactId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
+                    "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70",
                     "rootFolder": "Files"
                   },
                   "externalReferences": {
@@ -334,8 +341,8 @@
                 "properties": {
                   "type": "Lakehouse",
                   "typeProperties": {
-                    "artifactId": "ec6cb84e-c0f8-8301-41a0-93e7dc3ad09d",
-                    "workspaceId": "00000000-0000-0000-0000-000000000000",
+                    "artifactId": "dc3ad09d-93e7-41a0-8301-c0f8ec6cb84e",
+                    "workspaceId": "d9bd2de4-97a5-4cbe-80f4-5e4d4fb42b70",
                     "rootFolder": "Tables"
                   },
                   "externalReferences": {
@@ -532,6 +539,8 @@
           "secureOutput": false
         },
         "name": "Build_Game_event_raw_simulated",
+        "state": "Inactive",
+        "onInactiveMarkAs": "Succeeded",
         "dependsOn": [
           {
             "activity": "Create_Game_event_canonical_schema",
@@ -542,33 +551,22 @@
         ]
       },
       {
-        "type": "Script",
+        "type": "InvokePipeline",
         "typeProperties": {
-          "scripts": [
-            {
-              "text": {
-                "value": "SELECT\n\n    event_id,\n\n    COUNT(*) AS nb\n\nFROM dbo.Game_event_raw_real\n\nGROUP BY event_id\n\nHAVING COUNT(*) > 1;",
-                "type": "Expression"
-              },
-              "type": "Query"
-            }
-          ],
-          "scriptBlockExecutionTimeout": "02:00:00"
+          "parameters": {
+            "Action": "START",
+            "PipelineName": "@pipeline().PipelineName",
+            "TableName": "game_event_raw",
+            "LayerName": "Bronze",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
         },
-        "connectionSettings": {
-          "name": "wh_silver",
-          "properties": {
-            "type": "DataWarehouse",
-            "typeProperties": {
-              "artifactId": "db2942b9-4c6e-43a8-974b-ded16abfd378",
-              "endpoint": "t63mrljwyocupkxzbrhpojjiea-xgjtaa3ovpsu3d3rslr7dt6jiu.datawarehouse.fabric.microsoft.com",
-              "workspaceId": "033093b9-ab6e-4de5-8f71-92e3f1cfc945"
-            },
-            "externalReferences": {
-              "connection": "15cc7f6b-4635-4d4f-aeca-dc128a485c69"
-            },
-            "annotations": []
-          }
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
         },
         "policy": {
           "timeout": "0.12:00:00",
@@ -577,10 +575,93 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Check_duplicated_event_id",
-        "state": "Inactive",
-        "onInactiveMarkAs": "Succeeded",
+        "name": "Log_Start",
         "dependsOn": []
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "SUCCESS",
+            "PipelineName": {
+              "value": "@pipeline().PipelineName",
+              "type": "Expression"
+            },
+            "TableName": "game_event_raw",
+            "LayerName": "Bronze",
+            "ErrorMessage": "null"
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Success",
+        "dependsOn": [
+          {
+            "activity": "Build_Game_event_raw_real",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          },
+          {
+            "activity": "Build_Game_event_raw_simulated",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "InvokePipeline",
+        "typeProperties": {
+          "parameters": {
+            "Action": "FAILED",
+            "PipelineName": "@pipeline().PipelineName",
+            "TableName": "game_event_raw",
+            "LayerName": "Bronze",
+            "ErrorMessage": "Pipeline failed during execution. Check Fabric monitoring for details."
+          },
+          "waitOnCompletion": true,
+          "workspaceId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
+          "pipelineId": "0906a3be-24b9-4538-ae4d-8ffb77aaa198",
+          "operationType": "InvokeFabricPipeline"
+        },
+        "externalReferences": {
+          "connection": "a07c96eb-8ccd-4d65-aa3b-98a8cfdd4049"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Log_Fail",
+        "dependsOn": [
+          {
+            "activity": "Build_Game_event_raw_real",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          },
+          {
+            "activity": "Build_Game_event_raw_simulated",
+            "dependencyConditions": [
+              "Failed"
+            ]
+          }
+        ]
       }
     ]
   }
