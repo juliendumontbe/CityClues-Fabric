@@ -6,12 +6,6 @@
         "type": "Office365Email",
         "dependsOn": [
           {
-            "activity": "Hint Analytics data mart",
-            "dependencyConditions": [
-              "Failed"
-            ]
-          },
-          {
             "activity": "City Difficulty data mart",
             "dependencyConditions": [
               "Failed"
@@ -35,46 +29,6 @@
         },
         "externalReferences": {
           "connection": "ae912a4b-7a13-486a-90c5-ed3db44aad26"
-        }
-      },
-      {
-        "name": "Hint Analytics data mart",
-        "type": "PBISemanticModelRefresh",
-        "dependsOn": [],
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureOutput": false,
-          "secureInput": false
-        },
-        "typeProperties": {
-          "method": "POST",
-          "operationType": "SemanticModelRefresh",
-          "groupId": "e0a788ba-e0d8-4649-9eb4-89f26d881a53",
-          "datasetId": "9eaec433-054d-474a-a70c-5ecdbe4f5b45",
-          "objects": [
-            {
-              "table": "hint_performance"
-            },
-            {
-              "table": "fact_game_session"
-            },
-            {
-              "table": "fact_hint_usage"
-            },
-            {
-              "table": "dim_hint_gold"
-            },
-            {
-              "table": "dim_city_gold"
-            }
-          ],
-          "waitOnCompletion": true,
-          "commitMode": "Transactional"
-        },
-        "externalReferences": {
-          "connection": "a681dd50-4a5a-4a0d-8a5f-bdbabd781a45"
         }
       },
       {
